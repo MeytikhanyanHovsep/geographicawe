@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'Raleway';
+    src: url("/fonts/Raleway-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Med';
+    src: url("/fonts/Raleway-Medium.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Bold';
+    src: url("/fonts/Raleway-Bold.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Semi';
+    src: url("/fonts/Raleway-SemiBold.ttf");
+    font-weight: 400;
+}
+
+@theme {
+    /* Назначаем шрифт по умолчанию для всего проекта */
+    --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-medium {
+    font-family: "Med", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+}
+
+.font-semibold {
+    font-family: "Semi", ui-sans-serif, system-ui, sans-serif
+}
+
+.font-bold {
+    font-family: "Bold", ui-sans-serif, system-ui, sans-serif
+}
+
+body {
+    font-variant-numeric: lining-nums proportional-nums;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    font-family: "Raleway", ui-sans-serif, system-ui, sans-serif
+}

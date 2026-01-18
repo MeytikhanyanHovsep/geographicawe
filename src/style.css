@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@import "./css/fonts.css";
+@import "./css/colors.css";
+
+
+.container {
+  max-width: 1324px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.services-main {
+  background-image: url('/images/bgs/service.jpg');
+}
+
+
+.contacts-main {
+  background-image: url('/images/bgs/contacts.jpg');
+}
+
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  background: #D9D9D9 !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+
+.swiper-pagination-bullet-active {
+  background: #DBB454 !important;
+}
+
+[class*="ymaps-2-1-"][class*="-copyrights-promo"],
+[class*="ymaps-2-1-"][class*="-copyright-pane"],
+.ymaps-2-1-79-copyright {
+  display: none !important;
+}
+
+
+@media screen and (max-width:1028px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+
+@media screen and (max-width:640px) {
+  .swiper-prev {
+    display: none;
+  }
+
+  .swiper-next {
+    display: none;
+  }
+}
+
+input[type=range]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 20px;
+  height: 20px;
+  -webkit-appearance: none;
+  background: radial-gradient(circle, black 30%, white 31%);
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 20;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+  position: absolute;
+  top: -9px;
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  outline: none;
+}
+
+.accent-gold {
+  accent-color: #D9B863;
+}
+
+button,
+a {
+  cursor: pointer !important;
+}
+
+.line-detail {
+  background: linear-gradient(to right, white, #676767, #676767, white);
+}
+
+
+/* <button
+        class="h-[55px] bg-primary text-dark cursor-pointer font-bold text-[14px] border-2 border-primary hover:bg-transparent transition-all ">
+      Заказать
+      </button>
+ <h2 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">Натуральный камень</h2>
+     */

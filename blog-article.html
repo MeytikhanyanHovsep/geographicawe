@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <title>Географика - Колонны из натурального камня</title>
+</head>
+
+<body>
+    <header x-data="headerData" class="sm:border-b mb-5 text-dark z-20 top-0 left-0 h-20 border-dark/20 w-full">
+        <div
+            class="container relative max-sm:flex-wrap max-sm:gap-[20px] max-xl:gap-[40px] h-full flex items-center justify-between">
+            <span class="absolute sm:hidden -translate-1/2 left-1/2 top-[50px] w-[200%] h-px bg-white/30"></span>
+            <a href="/">
+                <h1 class="uppercase text-[25.5px] max-sm:text-[16.5px] text-dark font-semibold">Географика</h1>
+            </a>
+            <nav class="max-sm:hidden w-full flex justify-center">
+                <ul class="flex max-xl:hidden antialiased tracking-[0.5px] gap-[25px] items-center"
+                    @click.outside="openedIndex = null">
+
+                    <template x-for="(item, index) in menuItems" :key="index">
+                        <li class="relative">
+                            <template x-if="item.sub">
+                                <button type="button" @click.stop="openedIndex = (openedIndex === index ? null : index)"
+                                    class="text-dark group hover:text-primary leading-none flex items-center transition-all duration-300 gap-[10px] outline-none cursor-pointer"
+                                    :class="openedIndex === index ? 'text-primary' : ''">
+
+                                    <span x-text="item.name" class="transition-all duration-300"
+                                        :class="openedIndex === index ? 'text-primary' : ''"></span>
+
+                                    <span class="w-[10px] h-[6px] transition-all duration-300"
+                                        :class="openedIndex === index ? 'bg-primary rotate-180' : 'bg-black rotate-0 group-hover:bg-primary'"
+                                        style="mask: url('/images/icons/arrow-down.svg') no-repeat center; -webkit-mask: url('/images/icons/arrow-down.svg') no-repeat center; mask-size: contain; -webkit-mask-size: contain;">
+                                    </span>
+                                </button>
+                            </template>
+
+                            <template x-if="!item.sub">
+                                <a :href="item.link"
+                                    class="text-dark leading-none flex items-center transition-all duration-300 hover:text-primary"
+                                    x-text="item.name"></a>
+                            </template>
+
+                            <template x-if="item.sub">
+                                <ul x-show="openedIndex === index" x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
+                                    x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                                    x-transition:leave-end="opacity-0 scale-95 -translate-y-2"
+                                    class="absolute left-1/2 -translate-x-1/2 top-full mt-4 p-[10px] h-auto flex flex-col gap-[3px] w-[230px] bg-white shadow-xl z-50"
+                                    style="display: none;">
+
+                                    <template x-for="subItem in item.sub">
+                                        <li class="w-full">
+                                            <a :href="item.link"
+                                                class="text-dark transition-all duration-300 bg-gray-100 h-8 pl-[18px] flex items-center w-full font-medium hover:bg-gray-200"
+                                                x-text="subItem">
+                                            </a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+                        </li>
+                    </template>
+                </ul>
+            </nav>
+            <div class="flex max-sm:justify-end max-sm:w-[50%] items-center gap-[14px]">
+                <button
+                    class="min-w-10 max-sm:hidden group rounded-full hover:border-primary/30 cursor-pointer aspect-square p-2 border border-black/30 duration-300">
+                    <div class="bg-black min-w-[22px] aspect-square group-hover:bg-primary transition-colors"
+                        style="mask: url('/images/icons/search.svg') no-repeat center; -webkit-mask: url('/images/icons/search.svg') no-repeat center; mask-size: contain; -webkit-mask-size: contain;">
+                    </div>
+                </button>
+                <a href="#"
+                    class="flex max-sm:h-[50px] group transition-all duration-300 items-center max-sm:gap-4 gap-5 text-dark hover:text-primary tracking-[0.4px] leading-[100%] font-bold">
+                    <div>
+                        <button
+                            class="min-h-10 rounded-full group-hover:border-primary/30 cursor-pointer aspect-square max-sm:border-0 max-sm:p-0 max-sm:min-h-6 p-2 border border-black/30 duration-300">
+                            <div class="bg-black min-w-6 aspect-square group-hover:bg-primary transition-colors"
+                                style="mask: url('/images/icons/contact.svg') no-repeat center; -webkit-mask: url('/images/icons/contact.svg') no-repeat center; mask-size: contain; -webkit-mask-size: contain;">
+                            </div>
+                        </button>
+                    </div>
+                    <span class="whitespace-nowrap max-sm:mb-[2px] max-sm:text-[14px]">
+                        +7 (499) 113-11-04
+                    </span>
+                </a>
+            </div>
+            <div class="xl:hidden flex items-center max-sm:w-full">
+                <button class="min-w-[35px] h-[20px] group object-cover cursor-pointer">
+                    <div class="bg-white w-[35px] h-5 group-hover:bg-primary transition-colors"
+                        style="mask: url('/images/icons/menu.svg') no-repeat center; -webkit-mask: url('/images/icons/menu.svg') no-repeat center; mask-size: contain; -webkit-mask-size: contain;">
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="text-black/50 text-[14px] mb-5">
+            <a href="/">Главная</a>
+            <span> / </span>
+            <a href="/blog">Блог</a>
+            <span> / </span>
+            <a href="/blog-article" class="text-black">Колонны из натурального камня – как выбрать для своего
+                дома</a>
+        </nav>
+
+
+        <img src="/images/blog/4.jpg" class="w-full h-[390px] my-auto object-cover" alt="" />
+
+        <div class="flex flex-col text-[14px] items-start mt-5 gap-[14px]">
+            <div class="flex items-center gap-[8px]  text-[14px] leading-[100%]">
+                <div class="flex items-center gap-[8px] ">
+                    <img src="/images/icons/clock.svg" class="w-5 object-contain" alt="date" />
+                    <p class="mr-[12px]">05.11.2022</p>
+                </div>
+                <div class="flex items-center gap-[8px] ">
+                    <img src="/images/icons/eye.svg" class="w-5 object-contain" alt="views" />
+                    <p>3 451</p>
+                </div>
+            </div>
+            <h2 class="font-medium max-w-[920px] text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase
+                        text-dark-bg">
+                        Колонны из натурального камня – как выбрать для своего дома</h2>
+                    <p class="text-dark/80 max-w-[735px] tracking-tight leading-[140%]">Достаточно роскошным украшением
+                        для интерьера
+                        помещения
+                        являются колонны,
+                        изготовленные
+                        из
+                        натурального камня. Они максимально идеально вписываются в помещение с любой дизайнерской
+                        задумкой и концепцией. На сегодня колонны из натурального камня активно применяются не только
+                        для обустройства фасада здания, но и для украшения внутри помещения. При этом каждый человек
+                        должен знать, как максимально правильно подобрать этот предмет интерьера для собственного жилья.
+                    </p>
+                    <h3 class="font-medium text-[22px] max-sm:tracking-[0.2px] uppercase
+                        text-dark-bg">
+                        Особенности выбора стиля для колонн, изготовленных из натурального камня
+                    </h3>
+                    <p class="text-dark/80 max-w-[1014px] tracking-tight leading-[140%]">При выборе такого изделия,
+                        как колонны из натурального камня, существует достаточно большое количество стилевых
+                        решений, среди которых выделяют следующие
+                    </p>
+                    <div class="flex w-full bg-l-white text-dark text-[14px] flex-col p-[26px_60px_35px_20px]">
+                        <div class="pl-[18px] pb-[27px] border-b border-primary/50 relative">
+                            <span class="absolute top-2 left-0 w-2 h-2 aspect-square bg-primary rounded-full"></span>
+                            <span class="font-bold">Классический стиль</span>
+                            <p class="opacity-80 max-w-[715px] mt-2 leading-[140%]">При выборе этого решения у
+                                колонны,
+                                изготовленной из
+                                натурального
+                                камня, в
+                                обязательном порядке должно быть основание, капитель и непосредственно сам ствол</p>
+                        </div>
+                        <div class="pl-[18px] mt-[27px] relative">
+                            <span class="absolute top-2 left-0 w-2 h-2 aspect-square bg-primary rounded-full"></span>
+                            <span class="font-bold">Неклассический стиль</span>
+                            <p class="opacity-80 mt-2 leading-[140%]">Сюда можно отнести такие направления, как
+                                этнический и
+                                египетский
+                                стиль, модерн и барокко.</p>
+                        </div>
+                    </div>
+                    <div class="max-w-[720px] flex flex-col gap-4 text-dark/80 mt-3">
+                        <p>
+                            Наибольшим спросом в процессе оформления колонн из натурального камня пользуется
+                            классический стиль, который условно может быть поделен на ионический, дорический ордер и
+                            мраморные коринфские колонны.
+                        </p>
+                        <p>
+                            Колонны, выполненные в дорическом стиле, являются достаточно лаконичными и сдержанными, с
+                            небольшим сужением к верхней части. Ионическому стилю присуща ярко выраженная, но в то же
+                            время достаточно тонкая база, при этом сама капитель украшена посредством использования
+                            узоров. Особенность мраморных коринфских колонн заключается в том, что они по окружности
+                            украшаются достаточно большим количеством сложной и привлекательной по внешнему виду резьбы.
+                        </p>
+                        <p>
+
+                            При выборе конкретных видов колонн для собственного интерьера помещения необходимо
+                            руководствоваться общим стилевым решением.
+                        </p>
+                    </div>
+
+                </div>
+
+    </main>
+
+    <section class="container mt-[80px]" x-data="{
+        items: [
+            { id: 1, img: '/images/blog/1.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
+            { id: 2, img: '/images/blog/2.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
+            { id: 3, img: '/images/blog/3.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
+            { id: 4, img: '/images/blog/4.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
+            { id: 5, img: '/images/blog/4.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
+            { id: 6, img: '/images/blog/4.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
+        ],
+        initSwiper() {
+            this.$nextTick(() => {
+                new Swiper('.blog-swiper', {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-next',
+                        prevEl: '.swiper-prev',
+                    },
+                    breakpoints: {
+                        768: { slidesPerView: 2 },
+                        1024: { slidesPerView: 3 }
+                    }
+                });
+            });
+        }
+    }" x-init="initSwiper()">
+        <h2 class="font-medium text-[32px] max-sm:text-[24px] uppercase mb-[10px] text-dark-bg">
+            Похожие публикации
+        </h2>
+
+        <div class="swiper blog-swiper pb-[60px]">
+            <div class="swiper-wrapper">
+                <template x-for="(item, index) in items" :key="index">
+                    <div class="swiper-slide">
+                        <div
+                            class="relative max-md:gap-[5px] flex flex-col overflow-hidden transition-all duration-500 gap-[10px] text-[14px]">
+                            <div class="h-[206px] max-md:h-[169px] overflow-hidden">
+                                <img :src="item.img" :alt="item.title" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex items-center mt-[7px] mb-[3px] gap-[8px] text-[14px] leading-[100%]">
+                                <img src="/images/icons/clock.svg" class="w-5 object-contain" alt="date">
+                                <p x-text="item.date" class="mr-[12px]"></p>
+                                <img src="/images/icons/eye.svg" class="w-5 object-contain" alt="views">
+                                <p x-text="item.views"></p>
+                            </div>
+                            <h4 x-text="item.title" class="font-bold"></h4>
+                            <p x-text="item.desc" class="mb-[5px]"></p>
+                            <a href="#"
+                                class="h-[55px] bg-transparent text-dark cursor-pointer font-bold text-[14px] border-2 border-primary grid place-items-center hover:bg-primary transition-all">
+                                Читать далее
+                            </a>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="flex items-center justify-center gap-[30px] mt-[30px]">
+                <button
+                    class="swiper-prev w-[60px] h-[60px] border border-primary rounded-full flex items-center justify-center transition-all hover:bg-primary group cursor-pointer outline-none">
+                    <img src="/images/icons/arrow-right.svg" class="w-[6px] rotate-180 object-contain" alt="<">
+                </button>
+
+                <div class="swiper-pagination static! w-auto! flex! items-center gap-[7px]"></div>
+
+                <button
+                    class="swiper-next w-[60px] h-[60px] border border-primary rounded-full flex items-center justify-center transition-all hover:bg-primary group cursor-pointer outline-none">
+                    <img src="/images/icons/arrow-right.svg" class="w-[6px] object-contain" alt=">">
+                </button>
+            </div>
+        </div>
+    </section>
+    <footer class="mt-[80px] max-lg:mt-[50px]" x-data="{
+    contacts: [
+        {
+            id: 1,
+            title: 'Адрес',
+            icon: 'location.svg',
+            details: ['Москва, БЦ Россия, Волгоградский <br/> проспект, 26с1, офис 807']
+        },
+        {
+            id: 2,
+            title: 'Телефоны',
+            icon: 'phone.svg',
+            details: [
+                `<a href='tel:+74991131104' class='hover:text-white transition-colors'>+7 (499) 113-11-04 (Вся Россия)</a>`,
+                `<a href='tel:+74991131104' class='hover:text-white transition-colors'>+7 (499) 113-11-04 (Москва и область)</a>`
+            ]
+        },
+        {
+            id: 3,
+            title: 'E-mail',
+            icon: 'letter.svg',
+            details: [
+                `<a href='mailto:sales@geographica.ru' class='hover:text-white transition-colors'>sales@geographica.ru (Отдел продаж)</a>`,
+                `<a href='mailto:info@geographica.ru' class='hover:text-white transition-colors'>info@geographica.ru (Администрация)</a>`
+            ]
+        }
+    ]
+}">
+        <div class="bg-l-white">
+            <div class="container max-lg:pt-[40px] max-lg:pb-[50px] max-sm:pt-[50px] py-[80px]">
+                <h2
+                    class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
+                    Поможем с выбором камня
+                </h2>
+                <p class="mb-[20px] max-w-[567px] tracking-[0.3px] text-[14px]">Оставьте свои
+                    контактнные
+                    данные и мы
+                    свяжемся с вами в ближайшее время, ответим на ваши вопросы и проведём консультацию
+                </p>
+                <div class="grid gap-5 max-md:gap-[10px] max-sm:grid-cols-1 max-lg:grid-cols-2 grid-cols-3">
+                    <input name="name" placeholder="Имя" type="text" id="name"
+                        class="px-[22px] h-[60px] border-2 outline-0 border-border" />
+                    <input name="phone" placeholder="Телефон" type="text" id="phone"
+                        class="px-[22px] h-[60px] border-2 outline-0 border-border" />
+                    <button type="submit"
+                        class="full max-lg:order-5 h-[60px] bg-primary grid place-items-center hover:bg-h-primary text-dark cursor-pointer font-bold text-[14px] transition-all">
+                        Отправить
+                    </button>
+                    <textarea name="message" id="message" placeholder="Сообщение"
+                        class="p-[22px] resize-none h-[107px] sm:col-span-2 border-2 outline-0 border-border"></textarea>
+                    <p class="text-gray max-lg:col-end-2 max-lg:order-10 text-[14px] max-w-[325px]">
+                        Нажимая "Отправить заявку", вы принимаете условия <span
+                            class="underline cursor-pointer">пользовательского соглашения</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-f-bg relative">
+            <div class="container pt-[50px]">
+                <div class="flex max-[1200px]:flex-col max-[1200px]:items-start gap-10 items-center justify-between">
+                    <h2 class="font-medium text-white text-[32px]"><a href="/">Географика</a></h2>
+                    <nav class="max-[1200px]:w-full">
+                        <ul
+                            class="flex max-md:gap-[10px] max-md:flex-col max-md:items-start max-lg:gap-[26px] max-[1200px]:w-full gap-[70px] items-center justify-between">
+                            <li><a href="#"
+                                    class="text-white/40 hover:text-white transition-colors duration-300 text-[14px]">Натуральные
+                                    камни</a></li>
+                            <li><a href="#" class="text-white font-semibold text-[14px]">Изделия из
+                                    камней</a></li>
+                            <li><a href="#"
+                                    class="text-white/40 hover:text-white transition-colors duration-300 text-[14px]">Услуги</a>
+                            </li>
+                            <li><a href="#"
+                                    class="text-white/40 hover:text-white transition-colors duration-300 text-[14px]">Блог</a>
+                            </li>
+                            <li><a href="#"
+                                    class="text-white/40 hover:text-white transition-colors duration-300 text-[14px]">О
+                                    компании</a></li>
+                            <li><a href="#"
+                                    class="text-white/40 hover:text-white transition-colors duration-300 text-[14px]">Контакты</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div
+                        class="mb-11 max-lg:w-full max-lg:flex max-lg:justify-between grid grid-cols-3 max-lg:gap-[30px] max-md:flex-col max-md:items-start max-md:gap-[36px] mt-7 w-[90%]">
+                        <template x-for="item in contacts" :key="item.id">
+                            <div class="flex flex-col">
+                                <img :src="`/images/icons/${item.icon}`" :alt="item.title"
+                                    class="w-[30px] object-contain">
+                                <h4 class="text-white font-bold text-[16px] mt-[17px] mb-[5px]" x-text="item.title">
+                                </h4>
+                                <div class="flex flex-col gap-1">
+                                    <template x-for="line in item.details">
+                                        <p class="text-white/40 text-[14px] transition-colors duration-300 leading-[140%]"
+                                            x-html="line"></p>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <img src="/images/icons/arrow-top.svg" @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+                        class="cursor-pointer max-md:top-[190px] top-[44px] right-[20px] max-lg:absolute w-[60px] object-contain"
+                        alt="Top" />
+                </div>
+            </div>
+            <div class="border-t border-white/40">
+                <div class="container">
+                    <div
+                        class="max-[1200px]:max-w-full max-md:flex-col max-md:items-start max-md:gap-[8px] max-md:h-[140px] max-md:justify-center max-[1200px]:flex max-[1200px]:justify-between max-w-[90%] grid items-center text-white/40 h-[90px] grid-cols-3 text-[14px]">
+                        <p>© ООО “Географика” 2006-2024</p>
+                        <p>Все права защищены</p>
+                        <a class="hover:text-white transition-colors duration-300 cursor-pointer">Политика
+                            конфиденциальности</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
