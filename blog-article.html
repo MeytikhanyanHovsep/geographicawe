@@ -29,11 +29,11 @@
             {name:'Меню',link: 'services', icon:'menu'}
         ]
     }"
-        class="sm:border-b absolute max-sm:flex-col max-sm:flex z-20 top-0 left-0 max-sm:h-[112px] max-sm:border-0 h-20 border-white/30 w-full">
+        class="sm:border-b z-200 mb-5 max-sm:flex-col max-sm:flex top-0 left-0 max-sm:h-[112px] max-sm:border-0 h-20 border-dark/20 w-full">
         <div class="container gap-[14px]  relative h-full flex items-center justify-between">
 
             <a href="/" class="z-50 shrink-0">
-                <h1 class="uppercase font-forum leading-[100%] text-[28.5px] max-sm:text-[16.5px] text-white">Географика
+                <h1 class="uppercase font-forum leading-[100%] text-[28.5px] max-sm:text-[16.5px] text-dark">Географика
                 </h1>
             </a>
 
@@ -57,30 +57,30 @@
                 <nav class="max-sm:hidden max-w-full flex justify-center transition-all duration-500"
                     :class="searchOpen ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100 translate-y-0'">
                     <ul
-                        class="flex max-xl:hidden max-w-max justify-end antialiased tracking-[0.5px] max-2xl:gap-[23px] gap-[25px] items-center">
+                        class="flex max-xl:hidden max-w-max justify-end antialiased tracking-[0.5px] max-2xl:gap-[23px] z-200 gap-[25px] items-center">
 
                         <template x-for="(item, index) in menuItems" :key="index">
-                            <li class="relative">
+                            <li class="relative z-200">
                                 <template x-if="item.sub">
                                     <button type="button" @click.outside="openedIndex=null"
                                         @click.stop="openedIndex = (openedIndex === index ? null : index)"
-                                        class="text-white max-xl:text-[14px] font-bold group hover:text-primary flex items-center whitespace-nowrap transition-all duration-300 gap-[10px] cursor-pointer outline-none">
+                                        class="text-dark max-xl:text-[14px]  group hover:text-primary flex items-center whitespace-nowrap transition-all duration-300 gap-[10px] cursor-pointer outline-none">
                                         <span x-text="item.name"></span>
                                         <span class="w-[10px] h-[6px] transition-all duration-300"
-                                            :class="openedIndex === index ? 'bg-primary rotate-180' : 'bg-white group-hover:bg-primary'"
+                                            :class="openedIndex === index ? 'bg-primary rotate-180' : 'bg-black group-hover:bg-primary'"
                                             style="mask: url('/images/icons/arrow-down.svg') no-repeat center; -webkit-mask: url('/images/icons/arrow-down.svg') no-repeat center; mask-size: contain;">
                                         </span>
                                     </button>
                                 </template>
                                 <template x-if="!item.sub">
                                     <a :href="item.link"
-                                        class="text-white whitespace-nowrap max-xl:text-[14px] font-bold hover:text-primary transition-all leading-none"
+                                        class="text-dark whitespace-nowrap max-xl:text-[14px] hover:text-primary transition-all leading-none"
                                         x-text="item.name"></a>
                                 </template>
 
                                 <template x-if="item.sub">
                                     <ul x-show="openedIndex === index" x-transition
-                                        class="absolute left-1/2 -translate-x-1/2 top-full mt-4 p-[10px] w-[230px] bg-white shadow-xl z-50">
+                                        class="absolute z-200 left-1/2 -translate-x-1/2 top-full mt-4 p-[10px] w-[230px] bg-white shadow-xl">
                                         <template x-for="subItem in item.sub">
                                             <li><a :href="item.link"
                                                     class="text-dark bg-gray-100 h-8 flex items-center hover:bg-gray-200 mb-1"
@@ -95,8 +95,8 @@
                             <button @click.stop="searchOpen = true"
                                 class="group flex items-center cursor-pointer outline-none 2xl:ml-2">
                                 <div href="#"
-                                    class="min-h-10 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-white/30 duration-300 hover:border-primary/30 max-sm:hidden">
-                                    <div class="bg-white min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
+                                    class="min-h-10 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-black/30 duration-300 hover:border-primary/30 max-sm:hidden">
+                                    <div class="bg-black min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
                                         style="mask: url('/images/icons/search.svg') no-repeat center; mask-size: contain;">
                                     </div>
                                 </div>
@@ -110,20 +110,20 @@
                 <button @click.stop="searchOpen = true"
                     class="group  max-sm:hidden xl:hidden flex items-center cursor-pointer outline-none 2xl:ml-2">
                     <div href="#"
-                        class="min-h-10 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-white/30 duration-300 hover:border-primary/30">
-                        <div class="bg-white min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
+                        class="min-h-10 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-black/30 duration-300 hover:border-primary/30">
+                        <div class="bg-black min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
                             style="mask: url('/images/icons/search.svg') no-repeat center; mask-size: contain;"></div>
                     </div>
                 </button>
                 <a href="tel:+74991131104" class="flex group  max-2xl:gap-2! max-sm:gap-[10px] items-center gap-5">
                     <div href="#"
-                        class="min-h-10 max-sm:border-0 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-white/30 duration-300 group-hover:border-primary/30 ">
-                        <div class="bg-white min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
+                        class="min-h-10 max-sm:border-0 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-black/30 duration-300 group-hover:border-primary/30 ">
+                        <div class="bg-black min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
                             style="mask: url('/images/icons/whatsapp.svg') no-repeat center; mask-size: contain;"></div>
                     </div>
 
                     <div
-                        class="text-white group-hover:text-primary tracking-[0.1px] leading-[100%] font-bold transition-all whitespace-nowrap max-sm:text-[14px]">
+                        class="text-black group-hover:text-primary tracking-[0.1px] leading-[100%] font-bold transition-all whitespace-nowrap max-sm:text-[14px]">
                         +7 (499) 113-11-04
                     </div>
                 </a>
