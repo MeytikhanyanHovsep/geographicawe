@@ -176,7 +176,7 @@ document.addEventListener('alpine:init', () => {
         x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10"
         x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200"
         x-transition:leave-end="opacity-0" @click="window.scrollTo({ top: 0, behavior: 'smooth' }); showButton = false"
-        class="cursor-pointer z-50 bottom-40 max-lg:bottom-[130px] max-md:right-5 max-[1550px]:right-20  right-[calc((100%-1324px)/4)] [1550px]:translate-x-1/2 fixed w-[60px] object-contain"
+        class="cursor-pointer z-50 bottom-40 max-lg:bottom-[130px] max-md:right-5 max-[1550px]:right-20  right-[calc((100%-1420px)/4)] [1550px]:translate-x-1/2 fixed w-[60px] object-contain"
         alt="Top" />
   </div>
     
