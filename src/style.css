@@ -182,6 +182,26 @@ a {
 }
 
 
+@media screen and (max-width:1280px) {
+  body {
+    padding-bottom: 108px;
+  }
+}
+
+@media screen and (max-width:1040px) {}
+
+@media screen and (max-width:768px) {
+
+  .swiper-prev,
+  .swiper-next {
+    display: none;
+  }
+
+  .swiper-pagination {
+    margin-top: -7px;
+  }
+}
+
 /* <button
         class="h-[55px] bg-primary text-dark cursor-pointer font-bold text-[14px] border-2 border-primary hover:bg-transparent transition-all ">
       Заказать
