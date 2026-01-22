@@ -31,27 +31,28 @@
         class="sm:border-b absolute max-sm:flex-col max-sm:flex z-20 top-0 left-0 max-sm:h-[112px] max-sm:border-0 h-20 border-white/30 w-full">
     </header>
 
-    <main class="h-[590px] pt-[100px] bg-[url(/images/bgs/delevery.jpg)]  max-xl:h-auto bg-center bg-cover ">
+    <main
+        class="h-[594px] max-sm:h-[422px] max-sm:pt-[125px] max-lg:h-[600px] max-lg:pt-[105px] pt-[100px] bg-[url(/images/bgs/delevery.jpg)]   bg-center bg-cover ">
         <div class="container flex h-full justify-start flex-col gap-4">
-            <nav class="text-white/50 text-[14px] mb-[77px] ">
+            <nav class="text-white/50 text-[14px] max-lg:mb-[66px] max-md:mb-[30px] mb-[77px] ">
                 <a href="/">Главная</a>
                 <span> / </span>
                 <a href="/delevery" class="text-white">Доставка и оплата</a>
             </nav>
             <h2
-                class="text-white max-w-[1000px] max-sm:text-[24px] font-medium text-[70px] uppercase tracking-wide leading-[115%]">
+                class="text-white max-w-[1000px] max-sm:text-[24px] font-medium text-[70px] uppercase tracking-wide max-lg:text-[56px] leading-[115%]">
                 Доставка и оплата</h2>
             <p
-                class="max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-medium">
+                class="lg:max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-medium">
                 Вопрос, где купить гранит, цена которого будет доступной и соответствовать качеству, многих приводит к
-                нам! Мы готовы предложить материал отличного качества в ассортименте!</p>
+                нам!</p>
             <a href="#"
                 class="h-[60px] max-sm:h-[56px] max-sm:w-full font-bold uppercase text-[14px] grid place-items-center w-[324px] bg-primary hover:bg-h-primary transition-all duration-300 text-dark">
                 Записаться на консультацию
             </a>
         </div>
     </main>
-    <section class="container py-[80px]" x-data="{
+    <section class="container py-[80px] max-lg:py-[50px]" x-data="{
     steps:[{
         title: 'Доставка по Москве и в Московскую область <span class=\'text-primary\'>(в радиусе 30 км от МКАД)</span>', 
         desc: 'Бесплатно доставим заказ своим транспортом в удобное для вас время. Менеджеры согласуют с вами все детали, и в выбранный день и час заказ будет в пункте назначения'
@@ -65,17 +66,18 @@
 }">
         <div class="flex flex-col gap-5">
             <template x-for="(item, index) in steps" :key="index">
-                <div class="px-10 py-[50px] bg-l-white gap-8 flex  items-center ">
-                    <div class="min-w-[114px] rounded-full min-h-[114px] text-center border-[1.64px] border-primary/40 grid font-semibold place-items-center text-[60px] text-primary"
+                <div
+                    class="px-10 max-sm:flex-col max-lg:py-[40px] max-lg:px-[37px] py-[50px] bg-l-white gap-8 max-md:gap-5 max-md:px-[15px] max-md:pt-[26px] max-md:pb-5 flex max-sm:text-center  items-center ">
+                    <div class="min-w-[114px] max-sm:text-[45px] max-md:max-h-[84px] max-md:max-w-[84px] max-md:min-h-[84px] max-md:min-w-[84px] rounded-full min-h-[114px] text-center border-[1.64px] border-primary/40 grid font-semibold place-items-center text-[60px] text-primary"
                         x-text="index + 1">
                     </div>
                     <div class="max-w-[910px]">
 
-                        <h3 class="text-[22px] tracking-[0.2px] font-semibold leading-[100%] mb-[10px] uppercase"
+                        <h3 class="text-[22px] max-md:text-[18px] tracking-[0.2px] font-semibold leading-[110%] mb-[10px] uppercase"
                             x-html="item.title">
                         </h3>
 
-                        <p class=" tracking-[0.1px] text-dark leading-[140%]" x-text="item.desc">
+                        <p class=" tracking-[0.1px] max-sm:text-[14px] text-dark leading-[140%]" x-text="item.desc">
                         </p>
                     </div>
                 </div>
@@ -111,12 +113,12 @@
         }
     ]
 }">
-        <div class=" bg-l-white py-[80px]">
+        <div class=" bg-l-white max-lg:py-[60px] max-md:py-[50px] py-[80px]">
             <h2
-                class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[34px] text-dark-bg text-center">
+                class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[34px] max-lg:mb-[77px] max-md:mb-[45px] text-dark-bg text-center">
                 Методы оплаты</h2>
             <div
-                class="flex max-md:flex-col max-md:gap-[25px] flex-wrap items-center justify-around max-lg:gap-[13px] px-[120px] gap-x-[30px] gap-y-[60px]">
+                class="flex max-md:flex-col max-lg:px-[20px] max-md:gap-[25px] flex-wrap items-center justify-around max-lg:gap-[13px] px-[120px] gap-x-[30px] gap-y-[60px]">
                 <template x-for="(item,index) in features" :key="index">
                     <div class="flex max-w-[435px] w-full justify-start flex-col items-center text-center">
 
@@ -153,7 +155,7 @@
             (P.D.C.P.). Ваши конфиденциальные данные, необходимые для оплаты (реквизиты карты, регистрационные данные и
             др.), не поступают в интернет-магазин — их обработка производится на стороне процессингового центра Unitpay
             и полностью защищена.</p>
-        <div class="pb-[23px] mt-[36px] text-[16px] px-[43px] pt-[55px] bg-l-white">
+        <div class="pb-[23px] max-lg:mt-[10px] mt-[36px] max-lg:p-[35px] text-[16px] px-[43px] pt-[55px] bg-l-white">
             <p class="max-w-[803px]">К оплате принимаются платежные карты: VISA, MasterCard, Maestro, МИР. Для оплаты
                 товара банковской картой
                 при оформлении заказа в интернет-магазине выберите способ оплаты: банковской картой. При оплате заказа

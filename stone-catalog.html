@@ -33,7 +33,7 @@
     </header>
 
     <main
-        class="h-[550px] max-md:h-[482px] max-lg:h-[594px] pt-[120px]  bg-center bg-cover bg-[url(/images/bgs/catalog.jpg)]">
+        class="h-[550px] max-md:h-[482px] max-lg:h-[594px] max-[1260px]:h-[620px] pt-[120px]  bg-center bg-cover bg-[url(/images/bgs/catalog.jpg)]">
         <div class="container flex h-full justify-start flex-col gap-4">
             <nav class="text-white/50 text-[14px] mb-[30px] ">
                 <a href="/">Главная</a>
@@ -55,9 +55,10 @@
             </a>
         </div>
     </main>
-    <div class="flex flex-col container pt-[30px] mb-5 w-full" x-data="{ 
+    <div class="flex flex-col container pt-[30px] max-md:pt-5 mb-5 w-full" x-data="{ 
     activeCategory: 'ГРАНИТ',
     openedSort: null, 
+    asideOpen: false,
     categories: ['ГРАНИТ', 'СЛАНЕЦ', 'ТРАВЕРТИН', 'ПЕСЧАНИК', 'ИЗВЕСТНЯК', 'МРАМОР'],
     sorts: {
         popularity: { label: 'По популярности', options: ['По популярности', 'Новинки'] },
@@ -66,10 +67,12 @@
     }
 }">
 
-        <div class="grid grid-cols-6 bg-l-white ">
-            <template x-for="(cat, index) in categories" :key="cat">
-                <div class="flex items-center flex-1 h-full">
-                    <button class="flex-1 max-lg:h-[50px] h-[60px] uppercase transition-all duration-300"
+        <div class="grid grid-cols-6 max-md:flex! max-md:justify-between bg-l-white relative"
+            x-data="{ moreMenuOpen: false }">
+            <template x-for="(cat, index) in categories" :key="index">
+                <div :class="index > 2 ? 'max-md:hidden' :''" class="flex items-center flex-1 h-full">
+                    <button
+                        class="flex-1 max-md:text-[12px] max-lg:h-[50px] h-[60px] uppercase transition-all duration-300"
                         :class="activeCategory === cat ? ' bg-f-bg! font-bold text-white' : 'text-gray-800 tracking-[0.2px] font-medium hover:bg-gray-100'"
                         @click="activeCategory = cat" x-text="cat">
                     </button>
@@ -80,19 +83,47 @@
                     </template>
                 </div>
             </template>
+
+            <div class="flex md:hidden items-center justify-center gap-[10px] min-w-[64px] h-full relative"
+                @click.outside="moreMenuOpen = false">
+                <button @click="moreMenuOpen = !moreMenuOpen"
+                    class="flex-1 flex items-center justify-center max-lg:h-[50px] h-[60px] transition-all duration-300 uppercase text-gray-800 tracking-[0.2px] font-medium hover:bg-gray-100 max-md:text-[12px]">
+                    Ещё
+                    <svg class="flex-none w-3 h-3 transition-transform duration-300"
+                        :class="moreMenuOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <div x-show="moreMenuOpen" x-transition
+                    class="absolute top-full right-0 w-[150px] bg-white shadow-xl border border-gray-100 z-[110]"
+                    style="display: none;">
+                    <div class="flex flex-col w-full">
+                        <template x-for="(cat, index) in categories" :key="'more-' + index">
+                            <button x-show="index > 2"
+                                class="w-full text-left px-4 py-3 text-[12px] uppercase transition-colors hover:bg-gray-50 border-b border-gray-50 last:border-none"
+                                :class="activeCategory === cat ? 'text-primary font-bold' : 'text-gray-800'"
+                                @click="activeCategory = cat; moreMenuOpen = false" x-text="cat">
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="flex max-w-max max-lg:justify-between justify-start lg:ml-[320px] items-center gap-5 pt-8"
+        <div class="flex max-w-max max-lg:justify-between max-lg:min-w-full justify-start lg:ml-[320px] items-center gap-5 max-md:gap-4 max-md:pt-5 pt-8"
             @click.outside="openedSort = null">
-            <button
-                class="bg-f-bg max-lg:py-[10px] h-[46px]  w-[164px] justify-center text-white hidden font-bold flex items-center gap-[10px] ">
-                Все фильтры
+            <button @click="asideOpen = true"
+                class="bg-f-bg max-lg:py-[10px] h-[43px] max-w-[164px] min-w-[164px] justify-center text-white lg:hidden max-md:min-w-[84px] max-md:max-w-[84px] font-bold flex items-center gap-[10px] ">
                 <img src="/images/icons/params.svg" class="" alt="*" />
+                <span class="max-md:hidden">Все фильтры</span>
             </button>
             <template x-for="(sort, key) in sorts" :key="key">
-                <div class="flex flex-col relative">
+                <div :class="key != 'popularity' ? 'max-[660px]:hidden' : 'max-[660px]:w-full'"
+                    class="flex flex-col relative">
+
                     <button
-                        class="flex items-center justify-between gap-2 max-lg:py-[10px] border border-gray-200 max-lg:px-[13px] px-6 py-[14px] hover:border-gray-400 transition-colors"
+                        class="flex items-center justify-center gap-2 max-lg:py-[8px] border min-w-max border-gray-200 max-lg:px-[13px] px-6 py-[14px] hover:border-gray-400 transition-colors max-[660px]:w-full"
                         @click.stop="openedSort = (openedSort === key ? null : key)">
 
                         <span x-text="sort.label"></span>
@@ -120,109 +151,103 @@
                 </div>
             </template>
         </div>
-    </div>
 
-    <section class="container pb-20 items-start flex gap-10" x-data="{
+        <div x-show="asideOpen" x-transition.opacity @click="asideOpen = false"
+            class="fixed inset-0 bg-black/50 z-[99] lg:hidden" style="display: none;"></div>
+
+        <section class="pb-20 max-lg:items-stretch items-start flex gap-10 mt-10" x-data="{
             groups: [
-                {
-                    title: 'Размер',
-                    options: ['300x600x30', '300x600x80', '300x600x100']
-                },
-                {
-                    title: 'Вид',
-                    options: ['Гранит', 'Мрамор', 'Сланец']
-                },
-                {
-                    title: 'Назначение',
-                    options: ['Гранит', 'Мрамор', 'Сланец']
-                },
-                {
-                    title: 'Структура зерна',
-                    options: ['Мелкая', 'Средняя', 'Крупная']
-                },
-                {
-                    title: 'Цвета',
-                    options: ['Коричневый', 'Красный', 'Синий']
-                }
+                { title: 'Размер', options: ['300x600x30', '300x600x80', '300x600x100'] },
+                { title: 'Вид', options: ['Гранит', 'Мрамор', 'Сланец'] },
+                { title: 'Назначение', options: ['Гранит', 'Мрамор', 'Сланец'] },
+                { title: 'Структура зерна', options: ['Мелкая', 'Средняя', 'Крупная'] },
+                { title: 'Цвета', options: ['Коричневый', 'Красный', 'Синий'] }
             ]
         }">
-        <aside class="min-w-[280px] max-lg:hidden max-lg:bg-white max-lg:shadow-md w-[280px]">
-            <div class="mb-8">
-                <h3 class="mb-[10px] font-bold ">Цена</h3>
-                <div class="mb-6 flex justify-between gap-3">
-                    <input id="input-min" type="text" value="7950"
-                        class="w-full border border-gray2 py-2 px-1 text-center text-gray-700 outline-none focus:border-[#D9B863]">
-                    <input id="input-max" type="text" value="45150"
-                        class="w-full border border-gray2 py-2 px-1 text-center text-gray-700 outline-none focus:border-[#D9B863]">
+            <aside :class="asideOpen ? 'translate-x-0' : 'max-lg:-translate-x-full'"
+                class="min-w-[280px] w-[280px] transition-transform duration-300 max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:h-full max-lg:bg-white max-lg:z-100 hide-scrollbar max-lg:p-6 max-lg:shadow-2xl overflow-y-auto lg:static lg:block lg:translate-x-0">
+
+                <div class="lg:hidden flex justify-between items-center mb-6">
+                    <span class="font-bold text-lg">Фильтры</span>
+                    <button @click="asideOpen = false" class="text-2xl">&times;</button>
                 </div>
 
-                <div class="relative w-full h-1">
-                    <div class="absolute w-full h-[2px] bg-gray-200 rounded z-0 top-0"></div>
-                    <div id="slider-progress" class="absolute h-[2px] bg-gray2 -z-1 top-0"></div>
-                    <input type="range" class="z-30 " id="range-min" min="7950" max="45150" value="7950" step="10">
-                    <input type="range" class="z-30 " id="range-max" min="7950" max="45150" value="45150" step="10">
-                </div>
-            </div>
-
-            <div class="space-y-6">
-                <template x-for="group in groups" :key="group.title">
-                    <div>
-                        <h3 class="mb-[10px] font-bold" x-text="group.title"></h3>
-                        <div class="space-y-3">
-                            <template x-for="option in group.options" :key="option">
-                                <label class="flex items-center gap-3 cursor-pointer group">
-                                    <input type="checkbox" :value="option"
-                                        class="w-[22px] transition-all duration-300 aspect-square rounded accent-gold cursor-pointer border-gray2">
-                                    <span x-text="option"></span>
-                                </label>
-                            </template>
-                        </div>
+                <div class="mb-8">
+                    <h3 class="mb-[10px] font-bold ">Цена</h3>
+                    <div class="mb-6 flex justify-between gap-3">
+                        <input id="input-min" type="text" value="7950"
+                            class="w-full border border-gray2 py-2 px-1 text-center text-gray-700 outline-none focus:border-[#D9B863]">
+                        <input id="input-max" type="text" value="45150"
+                            class="w-full border border-gray2 py-2 px-1 text-center text-gray-700 outline-none focus:border-[#D9B863]">
                     </div>
-                </template>
+                    <div class="relative w-full h-1">
+                        <div class="absolute w-full h-[2px] bg-gray-200 rounded z-0 top-0"></div>
+                        <div id="slider-progress" class="absolute h-[2px] bg-gray2 -z-1 top-0"></div>
+                        <input type="range" class="z-30 " id="range-min" min="7950" max="45150" value="7950" step="10">
+                        <input type="range" class="z-30 " id="range-max" min="7950" max="45150" value="45150" step="10">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <template x-for="group in groups" :key="group.title">
+                        <div>
+                            <h3 class="mb-[10px] font-bold" x-text="group.title"></h3>
+                            <div class="space-y-3">
+                                <template x-for="option in group.options" :key="option">
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <input type="checkbox" :value="option"
+                                            class="w-[22px] transition-all duration-300 aspect-square rounded accent-gold cursor-pointer border-gray2">
+                                        <span x-text="option"></span>
+                                    </label>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <button
+                    class="w-full mt-[22px] h-[55px] bg-primary! text-dark cursor-pointer font-bold text-[14px] border-2 border-primary! hover:bg-transparent! transition-all ">
+                    Применить
+                </button>
+            </aside>
+
+            <div class="max-lg:w-full">
+                <div class="grid max-lg:min-w-full mb-10 h-min grid-cols-1 sm:grid-cols-2 max-lg:gap-[30px] max-sm:gap-5 xl:grid-cols-3 gap-y-10 gap-x-5"
+                    x-data="{
+                    items: [
+                        { name: 'Мрамор', img: '/images/stones/marble.jpg' },
+                        { name: 'Гранит', img: '/images/stones/granite.jpg' },
+                        { name: 'Оникс', img: '/images/stones/onyx.jpg' },
+                        { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
+                        { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
+                        { name: 'Гранит', img: '/images/stones/granite.jpg' },
+                        { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
+                        { name: 'Гранит', img: '/images/stones/granite.jpg' } ,
+                        { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
+                    ]
+                }">
+
+                    <template x-for="(item,index) in items" :key="index">
+                        <product-card :name="item.name" :img="item.img" />
+                    </template>
+                </div>
+                <button
+                    class="h-[55px] w-full bg-primary! text-dark cursor-pointer font-bold text-[14px] border-2 border-primary! hover:bg-transparent! transition-all ">
+                    Показать ещё
+                </button>
             </div>
-
-            <button
-                class="w-full mt-[22px] h-[55px] bg-primary! text-dark cursor-pointer font-bold text-[14px] border-2 border-primary! hover:bg-transparent! transition-all ">
-                Применить
-            </button>
-        </aside>
-        <div>
-            <div class="grid mb-10 h-min grid-cols-1 sm:grid-cols-2 max-lg:gap-[30px] max-sm:gap-5 xl:grid-cols-3 gap-y-10 gap-x-5"
-                x-data="{
-        items: [
-            { name: 'Мрамор', img: '/images/stones/marble.jpg' },
-            { name: 'Гранит', img: '/images/stones/granite.jpg' },
-            { name: 'Оникс', img: '/images/stones/onyx.jpg' },
-            { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
-            { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
-            { name: 'Гранит', img: '/images/stones/granite.jpg' },
-            { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
-            { name: 'Гранит', img: '/images/stones/granite.jpg' } ,
-              { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
-
-        ]
-     }">
-
-                <template x-for="(item,index) in items" :key="index">
-                    <product-card :name="item.name" :img="item.img" />
-                </template>
-            </div>
-            <button
-                class="h-[55px] w-full  bg-primary! text-dark cursor-pointer font-bold text-[14px] border-2 border-primary! hover:bg-transparent! transition-all ">
-                Показать ещё
-            </button>
-        </div>
-    </section>
+        </section>
+    </div>
 
 
-    <section class="bg-l-white py-20" x-data="{
+    <section class="bg-l-white max-lg:py-[60px] max-md:py-[50px] py-20" x-data="{
         item:{ name: 'Оникс', img: '/images/stones/onyx.jpg' }
     }">
         <div class="container">
             <h2
                 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                 Новинки</h2>
-            <div class="flex gap-5 justify-between">
+            <div class="flex gap-5 max-md:flex-col justify-between">
                 <div class="group max-h-min relative flex flex-col overflow-hidden  transition-all duration-500 gap-2">
                     <div class="overflow-hidden">
                         <img src="/images/stones/onyx.jpg" alt="item.name"
@@ -269,14 +294,20 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark">
-                            <span class="font-bold whitespace-nowrap tracking-[0.1px]">от 7 950 руб. / м²</span>
-                            <p class="bg-dark/4 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center"><span
-                                    class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span> хорошая
-                                цена</p>
-                            <p class="bg-dark/4 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center"><img
-                                    src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
-                                заказывали: 123</p>
+                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
+                            <span class="font-bold whitespace-nowrap tracking-[0.1px] max-lg:w-full">от 7 950 руб. /
+                                м²</span>
+                            <p
+                                class="bg-dark/4 max-lg:flex-1 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center">
+                                <span class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span>
+                                хорошая
+                                цена
+                            </p>
+                            <p
+                                class="bg-dark/4 max-lg:flex-1 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center">
+                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                заказывали: 123
+                            </p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-1 border-b border-primary/50! pb-5">
@@ -288,14 +319,20 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark">
-                            <span class="font-bold whitespace-nowrap tracking-[0.1px]">от 7 950 руб. / м²</span>
-                            <p class="bg-dark/4 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center"><span
-                                    class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span> хорошая
-                                цена</p>
-                            <p class="bg-dark/4 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center"><img
-                                    src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
-                                заказывали: 123</p>
+                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
+                            <span class="font-bold whitespace-nowrap tracking-[0.1px] max-lg:w-full">от 7 950 руб. /
+                                м²</span>
+                            <p
+                                class="bg-dark/4 max-lg:flex-1 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center">
+                                <span class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span>
+                                хорошая
+                                цена
+                            </p>
+                            <p
+                                class="bg-dark/4 max-lg:flex-1 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center">
+                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                заказывали: 123
+                            </p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-1 border-b border-primary/50! pb-5">
@@ -307,14 +344,20 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark">
-                            <span class="font-bold whitespace-nowrap tracking-[0.1px]">от 7 950 руб. / м²</span>
-                            <p class="bg-dark/4 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center"><span
-                                    class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span> хорошая
-                                цена</p>
-                            <p class="bg-dark/4 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center"><img
-                                    src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
-                                заказывали: 123</p>
+                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
+                            <span class="font-bold whitespace-nowrap tracking-[0.1px] max-lg:w-full">от 7 950 руб. /
+                                м²</span>
+                            <p
+                                class="bg-dark/4 max-lg:flex-1 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center">
+                                <span class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span>
+                                хорошая
+                                цена
+                            </p>
+                            <p
+                                class="bg-dark/4 max-lg:flex-1 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center">
+                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                заказывали: 123
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -381,7 +424,7 @@
     </section>
 
 
-    <section class="container pt-20">
+    <section class="container max-md:pt-[50px] pt-20">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
             Часто задаваемые вопросы</h2>
         <div class="flex flex-col gap-1 w-full" x-data="{ 
@@ -415,7 +458,7 @@
                         :style="selected === index ? 'max-height: ' + $el.scrollHeight + 'px' : 'max-height: 0px'">
 
                         <div class="border-t border-primary/50 mt-[18px] flex flex-col pt-4">
-                            <p x-text="item.a" class="leading-[130%] max-w-7/10"></p>
+                            <p x-text="item.a" class="leading-[130%] lg:max-w-7/10"></p>
                         </div>
                     </div>
                 </div>
