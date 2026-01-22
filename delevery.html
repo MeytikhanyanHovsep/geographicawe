@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <header x-data="{ 
+    <header x-data="{
+        menuToggle: false, 
         searchOpen: false, 
         openedIndex: null,
         menuItems: [
@@ -25,132 +26,9 @@
             { name: 'Камни', link: '/stone-catalog' , icon:'stone'},
             { name: 'Изделия', link: '/stone-catalog' , icon:'catalog'},
             { name: 'Услуги', link: 'services' , icon:'document'},
-            {name:'Меню',link: 'services', icon:'menu'}
         ]
     }"
         class="sm:border-b absolute max-sm:flex-col max-sm:flex z-20 top-0 left-0 max-sm:h-[112px] max-sm:border-0 h-20 border-white/30 w-full">
-        <div class="container gap-[14px]  relative h-full flex items-center justify-between">
-
-            <a href="/" class="z-50 shrink-0">
-                <h1 class="uppercase font-forum leading-[100%] text-[28.5px] max-sm:text-[16.5px] text-white">Географика
-                </h1>
-            </a>
-
-            <div class="flex-1 flex justify-end items-center h-full relative ">
-
-                <div x-show="searchOpen" @click.outside="searchOpen = false; openedIndex = null" x-cloak
-                    x-transition:enter="transition all duration-500 ease-out"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition all duration-300 ease-in" x-transition:leave-end="opacity-0 scale-95"
-                    class="absolute max-sm:hidden! inset-0 flex items-center justify-center z-40">
-                    <div
-                        class="max-w-[861px] w-full will-change-transform bg-white h-[50px] flex items-center px-4 shadow-2xl">
-                        <input type="text" placeholder="Поиск" @click.stop
-                            class="w-full will-change-transform bg-transparent border-none outline-none text-[#1a1a1a] text-[16px] placeholder:text-gray-400">
-                        <div class="bg-[#1a1a1a] will-change-transform w-5 h-5 opacity-60 cursor-pointer"
-                            style="mask: url('/images/icons/search.svg') no-repeat center; -webkit-mask: url('/images/icons/search.svg') no-repeat center; mask-size: contain;">
-                        </div>
-                    </div>
-                </div>
-
-                <nav class="max-sm:hidden max-w-full flex justify-center transition-all duration-500"
-                    :class="searchOpen ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100 translate-y-0'">
-                    <ul
-                        class="flex max-xl:hidden max-w-max justify-end antialiased tracking-[0.5px] max-2xl:gap-[23px] gap-[25px] items-center">
-
-                        <template x-for="(item, index) in menuItems" :key="index">
-                            <li class="relative">
-                                <template x-if="item.sub">
-                                    <button type="button" @click.outside="openedIndex=null"
-                                        @click.stop="openedIndex = (openedIndex === index ? null : index)"
-                                        class="text-white max-xl:text-[14px] font-bold group hover:text-primary flex items-center whitespace-nowrap transition-all duration-300 gap-[10px] cursor-pointer outline-none">
-                                        <span x-text="item.name"></span>
-                                        <span class="w-[10px] h-[6px] transition-all duration-300"
-                                            :class="openedIndex === index ? 'bg-primary rotate-180' : 'bg-white group-hover:bg-primary'"
-                                            style="mask: url('/images/icons/arrow-down.svg') no-repeat center; -webkit-mask: url('/images/icons/arrow-down.svg') no-repeat center; mask-size: contain;">
-                                        </span>
-                                    </button>
-                                </template>
-                                <template x-if="!item.sub">
-                                    <a :href="item.link"
-                                        class="text-white whitespace-nowrap max-xl:text-[14px] font-bold hover:text-primary transition-all leading-none"
-                                        x-text="item.name"></a>
-                                </template>
-
-                                <template x-if="item.sub">
-                                    <ul x-show="openedIndex === index" x-transition
-                                        class="absolute left-1/2 -translate-x-1/2 top-full mt-4 p-[10px] w-[230px] bg-white shadow-xl z-50">
-                                        <template x-for="subItem in item.sub">
-                                            <li><a :href="item.link"
-                                                    class="text-dark bg-gray-100 h-8 flex items-center hover:bg-gray-200 mb-1"
-                                                    x-text="subItem"></a></li>
-                                        </template>
-                                    </ul>
-                                </template>
-                            </li>
-                        </template>
-
-                        <li class="max-w-min">
-                            <button @click.stop="searchOpen = true"
-                                class="group flex items-center cursor-pointer outline-none 2xl:ml-2">
-                                <div href="#"
-                                    class="min-h-10 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-white/30 duration-300 hover:border-primary/30 max-sm:hidden">
-                                    <div class="bg-white min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
-                                        style="mask: url('/images/icons/search.svg') no-repeat center; mask-size: contain;">
-                                    </div>
-                                </div>
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
-            <div class="flex items-center gap-[14px] shrink-0 z-50">
-                <button @click.stop="searchOpen = true"
-                    class="group  max-sm:hidden xl:hidden flex items-center cursor-pointer outline-none 2xl:ml-2">
-                    <div href="#"
-                        class="min-h-10 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-white/30 duration-300 hover:border-primary/30">
-                        <div class="bg-white min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
-                            style="mask: url('/images/icons/search.svg') no-repeat center; mask-size: contain;"></div>
-                    </div>
-                </button>
-                <a href="tel:+74991131104" class="flex group  max-2xl:gap-2! max-sm:gap-[10px] items-center gap-5">
-                    <div href="#"
-                        class="min-h-10 max-sm:border-0 max-h-10 grid place-items-center rounded-full group cursor-pointer aspect-square border border-white/30 duration-300 group-hover:border-primary/30 ">
-                        <div class="bg-white min-w-6 max-w-6 aspect-square group-hover:bg-primary transition-colors"
-                            style="mask: url('/images/icons/whatsapp.svg') no-repeat center; mask-size: contain;"></div>
-                    </div>
-
-                    <div
-                        class="text-white group-hover:text-primary tracking-[0.1px] leading-[100%] font-bold transition-all whitespace-nowrap max-sm:text-[14px]">
-                        +7 (499) 113-11-04
-                    </div>
-                </a>
-
-            </div>
-        </div>
-        <div class="pt-[22px] flex gap-3 px-[20px] w-full min-h-[62px] border-t border-white/30 sm:hidden">
-            <div
-                class="border leading-[100%] border-white/30 uppercase grid place-items-center text-white/80 max-w-[92px] w-full h-[40px] font-semi text-[10.35px] tracking-0">
-                Фильтр
-            </div>
-            <div
-                class="flex leading-[100%] justify-between w-full text-[10.35px] text-white/80 items-center border border-white/30 px-[14px] ">
-                <input placeholder="ПОИСК" class="placeholder-white/80" />
-                <img src="/images/icons/search.svg" class="w-[17px] object-contain " alt="search" />
-            </div>
-        </div>
-        <ul
-            class="fixed xl:hidden shadow-[-1px_-1px_3px_#dfdfdf] pt-6 pb-5 flex justify-between px-[14px] bottom-0 w-screen bg-white">
-            <template x-for="(item, index) in mobileMenu" :key="index">
-                <li><a href="item.link"
-                        class="text-[12px] flex flex-col gap-1 items-center font-semibold leading-[140%]">
-                        <img :alt="item.name" class="w-[45px] object-contain"
-                            :src="'/images/icons/'+item.icon+'.svg'" />
-                        <span x-text="item.name"></span>
-                    </a></li>
-            </template>
-        </ul>
     </header>
 
     <main class="h-[590px] pt-[100px] bg-[url(/images/bgs/delevery.jpg)]  max-xl:h-auto bg-center bg-cover ">
@@ -173,7 +51,7 @@
             </a>
         </div>
     </main>
-    <section class="container pb-[145px] pt-[80px]" x-data="{
+    <section class="container py-[80px]" x-data="{
     steps:[{
         title: 'Доставка по Москве и в Московскую область <span class=\'text-primary\'>(в радиусе 30 км от МКАД)</span>', 
         desc: 'Бесплатно доставим заказ своим транспортом в удобное для вас время. Менеджеры согласуют с вами все детали, и в выбранный день и час заказ будет в пункте назначения'
@@ -233,7 +111,7 @@
         }
     ]
 }">
-        <div class=" bg-l-white pt-[62px] pb-[90px]">
+        <div class=" bg-l-white py-[80px]">
             <h2
                 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[34px] text-dark-bg text-center">
                 Методы оплаты</h2>
@@ -418,8 +296,6 @@
             </div>
         </div>
     </footer>
-
-
     <script type="module" src="/src/main.js"></script>
 
 </body>
