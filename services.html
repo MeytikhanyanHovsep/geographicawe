@@ -41,10 +41,10 @@
                 <a href="/services" class="text-white"> Услуги</a>
             </nav>
             <h2
-                class="text-white max-w-[1000px] max-lg:text-[57px] max-md:text-[24px] font-medium text-[70px] max-lg:max-w-[636px] uppercase tracking-wide leading-[115%]">
+                class="text-white max-w-[1000px] max-lg:text-[57px] max-md:text-[27px] font-medium text-[70px] max-lg:max-w-[636px] uppercase tracking-wide leading-[115%]">
                 Наши услуги по работе с камнями</h2>
             <p
-                class="lg:max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-medium">
+                class="lg:max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-semibold md:font-medium">
                 Вопрос, где купить гранит, цена которого будет доступной и соответствовать качеству, многих приводит к
                 нам!</p>
             <a href="#"
@@ -56,28 +56,41 @@
 
     <section class="container" x-data="{
         items: ['/images/cards/service-1.jpg', '/images/cards/service-3.jpg', '/images/cards/service-2.jpg', '/images/cards/service-1.jpg'
-        ]
+        ],
+        init() {
+            const observer = new IntersectionObserver((entries) => {
+                if (window.innerWidth >= 768) return;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('ring-primary');
+                        entry.target.classList.remove('ring-transparent');
+                    } else {
+                        entry.target.classList.remove('ring-primary');
+                        entry.target.classList.add('ring-transparent');
+                    }
+                });
+            }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+            this.$nextTick(() => {
+                this.$el.querySelectorAll('.js-scroll-border').forEach(el => observer.observe(el));
+            });
+        }
     }">
         <h2
-            class="font-medium text-[32px] max-md:pt-[50px] pt-20 max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
+            class="font-medium text-[32px] max-md:pt-[40px] pt-20 max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
             Лучшие предложения</h2>
         <div class="flex gap-5 flex-col">
             <template x-for="(item, index) in items" :key="index">
                 <div class="swiper-slide">
                     <div
-                        class="gap-6 border border-transparent transition-all duration-300 hover:border-primary max-lg:gap-4 max-lg:p-5 max-md:p-[15px] flex max-lg:flex-col bg-l-white p-7 pr-[13px] text-[14px]">
-                        <img alt="service" :src="item" :class="index % 2 ? 'lg:order-2' :''"
+                        class="js-scroll-border gap-6 ring-2 ring-inset ring-transparent transition-all duration-300 hover:ring-primary max-lg:gap-4 max-lg:p-5 max-md:p-[15px] flex max-lg:flex-col bg-l-white p-7 pr-[13px] text-[14px]">
+                        <img alt="service" :src="item" :class="index % 2 ? 'lg:order-2' : ''"
                             class="min-h-full max-lg:min-w-full max-md:min-h-[155px] max-w-[540px] xl:w-[540px] object-cover" />
                         <div>
-                            <h6 class=" leading-[140%]  font-bold">Монтаж балюстрады
-                                из
-                                песчаника</h6>
+                            <h6 class=" leading-[140%]  font-bold">Монтаж балюстрады из песчаника</h6>
                             <p
                                 class="leading-[130%] mb-8  max-md:max-w-full tracking-[0.2px] mt-5 max-lg:mb-4 max-lg:mt-2">
-                                Благодаря
-                                превосходным качествам, изделия из гранита
-                                находят
-                                широкое применение во всех сферах жизнедеятельности человека</p>
+                                Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех
+                                сферах жизнедеятельности человека</p>
                             <button
                                 class="h-[60px] max-md:w-full hover:bg-primary text-dark cursor-pointer font-bold text-[14px] w-[260px] border-2 border-primary bg-transparent transition-all ">
                                 Заказать
@@ -89,10 +102,26 @@
         </div>
     </section>
 
-
-    <section class="container  pt-20 max-md:pt-[50px]" x-data="{
+    <section class="container  pt-20 max-md:pt-[40px]" x-data="{
         items: ['/images/cards/service-1.jpg', '/images/cards/service-2.jpg', '/images/cards/service-3.jpg', '/images/cards/service-1.jpg'
-        ]
+        ],
+        init() {
+            const observer = new IntersectionObserver((entries) => {
+                if (window.innerWidth >= 768) return;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('ring-primary');
+                        entry.target.classList.remove('ring-transparent');
+                    } else {
+                        entry.target.classList.remove('ring-primary');
+                        entry.target.classList.add('ring-transparent');
+                    }
+                });
+            }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+            this.$nextTick(() => {
+                this.$el.querySelectorAll('.js-scroll-border').forEach(el => observer.observe(el));
+            });
+        }
     }">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
             доп. услуги для сотрудничества</h2>
@@ -100,15 +129,13 @@
             <template x-for="(item, index) in items" :key="index">
                 <div class="swiper-slide">
                     <div
-                        class="gap-4 border border-transparent transition-all duration-300 hover:border-primary flex flex-col bg-l-white max-md:p-[15px] max-lg:p-5 p-7 pr-[13px] text-[14px]">
+                        class="js-scroll-border gap-4 ring-2 ring-inset ring-transparent transition-all duration-300 hover:ring-primary flex flex-col bg-l-white max-md:p-[15px] max-lg:p-5 p-7 pr-[13px] text-[14px]">
                         <img alt="service" :src="item" class="min-h-[155px] w-full object-cover" />
                         <div>
                             <h6 class=" leading-[140%] font-bold">Монтаж балюстрады из песчаника</h6>
                             <p class="leading-[130%] mb-4 mt-2 tracking-[0.2px] sm:max-w-[475px] ">
-                                Благодаря
-                                превосходным качествам, изделия из гранита
-                                находят
-                                широкое применение во всех сферах жизнедеятельности человека</p>
+                                Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех
+                                сферах жизнедеятельности человека</p>
                             <button
                                 class="h-[60px] max-md:w-full hover:bg-primary text-dark cursor-pointer font-bold text-[14px] w-[260px] border-2 border-primary bg-transparent transition-all ">
                                 Заказать
@@ -120,22 +147,39 @@
         </div>
     </section>
 
-
-    <section class="container max-lg:pt-[50px] pt-[80px]">
+    <section class="container max-lg:pt-[40px] pt-[80px]">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
             Мы используем продукты </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-lg:gap-[30px] max-sm:gap-5 lgap-y-10 gap-x-5"
             x-data="{
-        items: [
-            { name: 'Мрамор', img: '/images/stones/marble.jpg' },
-            { name: 'Оникс', img: '/images/stones/onyx.jpg' },
-            { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
-            { name: 'Гранит', img: '/images/stones/granite.jpg' },
-        ]
-     }">
+            items: [
+                { name: 'Мрамор', img: '/images/stones/marble.jpg' },
+                { name: 'Оникс', img: '/images/stones/onyx.jpg' },
+                { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
+                { name: 'Гранит', img: '/images/stones/granite.jpg' },
+            ],
+            init() {
+                const handleScroll = () => {
+                    if (window.innerWidth >= 768) return;
+                    const items = this.$el.querySelectorAll('.js-parallax-item');
+                    items.forEach(item => {
+                        const rect = item.getBoundingClientRect();
+                        const winH = window.innerHeight;
+                        const img = item.querySelector('img');
+                        if (rect.top < winH && rect.bottom > 0 && img) {
+                            const progress = 1 - (rect.top + rect.height) / (winH + rect.height);
+                            const scale = 1 + (Math.max(0, Math.min(progress, 1)) * 0.20);
+                            img.style.transform = `scale(${scale})`;
+                        }
+                    });
+                };
+                window.addEventListener('scroll', () => requestAnimationFrame(handleScroll), { passive: true });
+            }
+        }">
 
             <template x-for="(item,index) in items" :key="index">
-                <div class="group relative flex flex-col overflow-hidden  transition-all duration-500 gap-2">
+                <div
+                    class="js-parallax-item group relative flex flex-col overflow-hidden transition-all duration-500 gap-2">
                     <div class="overflow-hidden">
                         <img :src="item.img" :alt="item.name"
                             class="w-full will-change-transform max-sm:h-[162px] h-[182px] object-cover transition-transform duration-500 group-hover:scale-110">
@@ -159,7 +203,7 @@
         </a>
     </section>
 
-    <footer class="mt-[80px] max-lg:mt-[50px]" x-data="{
+    <footer class="mt-[80px] max-lg:mt-[40px]" x-data="{
     contacts: [
         {
             id: 1,
@@ -188,7 +232,7 @@
     ]
 }">
         <div class="bg-l-white">
-            <div class="container max-lg:pt-[40px] max-lg:pb-[50px] max-sm:pt-[50px] py-[80px]">
+            <div class="container max-lg:pt-[40px] max-lg:pb-[40px] max-sm:pt-[40px] py-[80px]">
                 <h2
                     class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                     Поможем с выбором камня</h2>
@@ -219,7 +263,7 @@
             </div>
         </div>
         <div class="bg-f-bg relative">
-            <div class="container pt-[50px]">
+            <div class="container pt-[40px]">
                 <div class="flex max-[1200px]:flex-col max-[1200px]:items-start gap-10 items-center justify-between">
                     <h2 class="font-medium text-white text-[32px]"><a href="/">Географика</a></h2>
                     <nav class="max-[1200px]:w-full">

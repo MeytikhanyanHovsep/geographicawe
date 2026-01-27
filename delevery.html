@@ -40,10 +40,10 @@
                 <a href="/delevery" class="text-white">Доставка и оплата</a>
             </nav>
             <h2
-                class="text-white max-w-[1000px] max-sm:text-[24px] font-medium text-[70px] uppercase tracking-wide max-lg:text-[56px] leading-[115%]">
+                class="text-white max-w-[1000px] max-sm:text-[27px] max-md:font-bold!  md:font-medium text-[70px] uppercase tracking-wide max-lg:text-[56px] leading-[115%]">
                 Доставка и оплата</h2>
             <p
-                class="lg:max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-medium">
+                class="lg:max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-semibold md:font-medium">
                 Вопрос, где купить гранит, цена которого будет доступной и соответствовать качеству, многих приводит к
                 нам!</p>
             <a href="#"
@@ -52,7 +52,7 @@
             </a>
         </div>
     </main>
-    <section class="container py-[80px] max-lg:py-[50px]" x-data="{
+    <section class="container py-20 max-lg:py-10" x-data="{
     steps:[{
         title: 'Доставка по Москве и в Московскую область <span class=\'text-primary\'>(в радиусе 30 км от МКАД)</span>', 
         desc: 'Бесплатно доставим заказ своим транспортом в удобное для вас время. Менеджеры согласуют с вами все детали, и в выбранный день и час заказ будет в пункте назначения'
@@ -67,7 +67,7 @@
         <div class="flex flex-col gap-5">
             <template x-for="(item, index) in steps" :key="index">
                 <div
-                    class="px-10 max-sm:flex-col max-lg:py-[40px] max-lg:px-[37px] py-[50px] bg-l-white gap-8 max-md:gap-5 max-md:px-[15px] max-md:pt-[26px] max-md:pb-5 flex max-sm:text-center  items-center ">
+                    class="px-10 max-sm:flex-col max-lg:py-[40px] max-lg:px-[37px] py-10 bg-l-white gap-8 max-md:gap-5 max-md:px-[15px] max-md:pt-[26px] max-md:pb-5 flex max-sm:text-center  items-center ">
                     <div class="min-w-[114px] max-sm:text-[45px] max-md:max-h-[84px] max-md:max-w-[84px] max-md:min-h-[84px] max-md:min-w-[84px] rounded-full min-h-[114px] text-center border-[1.64px] border-primary/40 grid font-semibold place-items-center text-[60px] text-primary"
                         x-text="index + 1">
                     </div>
@@ -85,7 +85,7 @@
         </div>
     </section>
 
-    <section class="container max-lg:pb-[50px]  pb-[80px]" x-data="{
+    <section class="container max-lg:pb-10  pb-20" x-data="{
     features: [
         { 
             title: 'Перевод на карту', 
@@ -113,7 +113,7 @@
         }
     ]
 }">
-        <div class=" bg-l-white max-lg:py-[60px] max-md:py-[50px] py-[80px]">
+        <div class=" bg-l-white max-lg:py-[60px] max-md:py-10 py-20">
             <h2
                 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[34px] max-lg:mb-[77px] max-md:mb-[45px] text-dark-bg text-center">
                 Методы оплаты</h2>
@@ -124,7 +124,8 @@
 
                         <img :src="'/images/assets/' + item.icon" :alt="item.title" class="w-[70px] object-contain">
 
-                        <h3 class="font-semibold uppercase text-[22px] mt-5 mb-2  text-dark-bg" x-text="item.title">
+                        <h3 class="font-semibold uppercase max-md:text-[20px] text-[22px] mt-5 mb-2  text-dark-bg"
+                            x-text="item.title">
                         </h3>
                         <p :style="'max-width:' + item.w + 'px'" class="tracking-[0.2px] text-dark leading-[140%]"
                             x-html="item.desc">
@@ -176,7 +177,7 @@
             идентификации уточняйте в Банке, выдавшем Вам банковскую карту</p>
     </section>
 
-    <footer class="mt-[80px] max-lg:mt-[50px]" x-data="{
+    <footer class="mt-20 max-lg:mt-10" x-data="{
     contacts: [
         {
             id: 1,
@@ -205,7 +206,7 @@
     ]
 }">
         <div class="bg-l-white">
-            <div class="container max-lg:pt-[40px] max-lg:pb-[50px] max-sm:pt-[50px] py-[80px]">
+            <div class="container max-lg:pt-[40px] max-lg:pb-10 max-sm:pt-10 py-20">
                 <h2
                     class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                     Поможем с выбором камня</h2>
@@ -236,7 +237,7 @@
             </div>
         </div>
         <div class="bg-f-bg relative">
-            <div class="container pt-[50px]">
+            <div class="container pt-10">
                 <div class="flex max-[1200px]:flex-col max-[1200px]:items-start gap-10 items-center justify-between">
                     <h2 class="font-medium text-white text-[32px]"><a href="/">Географика</a></h2>
                     <nav class="max-[1200px]:w-full">

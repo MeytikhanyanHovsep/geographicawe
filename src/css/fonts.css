@@ -38,7 +38,7 @@
 }
 
 .font-semibold {
-    font-family: "Semi", ui-sans-serif, system-ui, sans-serif
+    font-family: "Semi", ui-sans-serif, system-ui, sans-serif !important;
 }
 
 .font-bold {

@@ -33,100 +33,81 @@
 
     </header>
 
-    <main class="container">
+    <main class="container" x-data="{
+    init() {
+        const observer = new IntersectionObserver((entries) => {
+            if (window.innerWidth >= 768) return;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.borderColor = '#E5AF56'; // Твой primary цвет
+                } else {
+                    entry.target.style.borderColor = 'transparent';
+                }
+            });
+        }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+        
+        this.$nextTick(() => {
+            const el = this.$el.querySelector('.js-scroll-border');
+            if (el) observer.observe(el);
+        });
+    }
+}">
         <nav class="text-black/50 text-[14px] mb-5">
             <a href="/">Главная</a>
             <span> / </span>
             <a href="/blog">Блог</a>
             <span> / </span>
-            <a href="/blog-article" class="text-black">Колонны из натурального камня – как выбрать для своего
-                дома</a>
+            <a href="/blog-article" class="text-black">Колонны из натурального камня – как выбрать для своего дома</a>
         </nav>
 
         <div
-            class="border-2 border-transparent overflow-hidden max-lg:h-[323px] max-md:h-[180px]  h-[390px] hover:border-primary duration-300 transition-colors">
-            <img src="/images/blog/4.jpg" class="w-full h-[390px]  max-lg:h-[323px] max-md:h-[180px] object-cover"
-                alt="" />
+            class="js-scroll-border border-2 border-transparent overflow-hidden max-lg:h-[323px] max-md:h-[180px] h-[390px] hover:border-primary duration-300 transition-all">
+            <img src="/images/blog/4.jpg" class="w-full h-full object-cover" alt="" />
         </div>
 
         <div class="flex flex-col text-[14px] items-start mt-5 gap-[14px]">
-            <div class="flex items-center gap-[8px]  text-[14px] leading-[100%]">
-                <div class="flex items-center gap-[8px] ">
+            <div class="flex items-center gap-[8px] text-[14px] leading-[100%]">
+                <div class="flex items-center gap-[8px]">
                     <img src="/images/icons/clock.svg" class="w-5 object-contain" alt="date" />
                     <p class="mr-[12px]">05.11.2022</p>
                 </div>
-                <div class="flex items-center gap-[8px] ">
+                <div class="flex items-center gap-[8px]">
                     <img src="/images/icons/eye.svg" class="w-5 object-contain" alt="views" />
                     <p>3 451</p>
-                </div>
             </div>
-            <h2 class="font-medium max-w-[920px] text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase
+        </div>
+        <h2 class="font-medium max-w-[920px] text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase
                         text-dark-bg">
-                        Колонны из натурального камня – как выбрать для своего дома</h2>
-                    <p class="text-dark/80 max-w-[735px] tracking-tight leading-[140%]">Достаточно роскошным украшением
-                        для интерьера
-                        помещения
-                        являются колонны,
-                        изготовленные
-                        из
-                        натурального камня. Они максимально идеально вписываются в помещение с любой дизайнерской
-                        задумкой и концепцией. На сегодня колонны из натурального камня активно применяются не только
-                        для обустройства фасада здания, но и для украшения внутри помещения. При этом каждый человек
-                        должен знать, как максимально правильно подобрать этот предмет интерьера для собственного жилья.
+                        Колонны из натурального камня – как выбрать для своего дома
+                        </h2>
+                    <p class="text-dark/80 max-w-[735px] tracking-tight leading-[140%]">
+                        Достаточно роскошным украшением для интерьера помещения являются колонны, изготовленные из
+                        натурального камня...
                     </p>
-                    <h3 class="font-medium text-[22px] max-sm:tracking-[0.2px] uppercase
-                        text-dark-bg">
+
+                    <h3
+                        class="font-semibold max-md:text-[24px] text-[22px] max-sm:tracking-[0.2px] uppercase text-dark-bg">
                         Особенности выбора стиля для колонн, изготовленных из натурального камня
                     </h3>
-                    <p class="text-dark/80 max-w-[1014px] tracking-tight leading-[140%]">При выборе такого изделия,
-                        как колонны из натурального камня, существует достаточно большое количество стилевых
-                        решений, среди которых выделяют следующие
+                    <p class="text-dark/80 max-w-[1014px] tracking-tight leading-[140%]">
+                        При выборе такого изделия... существует достаточно большое количество стилевых решений...
                     </p>
                     <div class="flex w-full bg-l-white text-dark text-[14px] flex-col p-[26px_60px_35px_20px]">
                         <div class="pl-[18px] pb-[27px] border-b border-primary/50 relative">
                             <span class="absolute top-2 left-0 w-2 h-2 aspect-square bg-primary rounded-full"></span>
                             <span class="font-bold">Классический стиль</span>
-                            <p class="opacity-80 max-w-[715px] mt-2 leading-[140%]">При выборе этого решения у
-                                колонны,
-                                изготовленной из
-                                натурального
-                                камня, в
-                                обязательном порядке должно быть основание, капитель и непосредственно сам ствол</p>
+                            <p class="opacity-80 max-w-[715px] mt-2 leading-[140%]">При выборе этого решения...</p>
                         </div>
                         <div class="pl-[18px] mt-[27px] relative">
                             <span class="absolute top-2 left-0 w-2 h-2 aspect-square bg-primary rounded-full"></span>
                             <span class="font-bold">Неклассический стиль</span>
-                            <p class="opacity-80 mt-2 leading-[140%]">Сюда можно отнести такие направления, как
-                                этнический и
-                                египетский
-                                стиль, модерн и барокко.</p>
+                            <p class="opacity-80 mt-2 leading-[140%]">Сюда можно отнести такие направления...</p>
                         </div>
                     </div>
-                    <div class="max-w-[720px] flex flex-col gap-4 text-dark/80 mt-3">
-                        <p>
-                            Наибольшим спросом в процессе оформления колонн из натурального камня пользуется
-                            классический стиль, который условно может быть поделен на ионический, дорический ордер и
-                            мраморные коринфские колонны.
-                        </p>
-                        <p>
-                            Колонны, выполненные в дорическом стиле, являются достаточно лаконичными и сдержанными, с
-                            небольшим сужением к верхней части. Ионическому стилю присуща ярко выраженная, но в то же
-                            время достаточно тонкая база, при этом сама капитель украшена посредством использования
-                            узоров. Особенность мраморных коринфских колонн заключается в том, что они по окружности
-                            украшаются достаточно большим количеством сложной и привлекательной по внешнему виду резьбы.
-                        </p>
-                        <p>
-
-                            При выборе конкретных видов колонн для собственного интерьера помещения необходимо
-                            руководствоваться общим стилевым решением.
-                        </p>
-                    </div>
-
                 </div>
-
     </main>
 
-    <section class="container mt-[80px] max-lg:mt-[50px]" x-data="{
+    <section class="container mt-[80px] max-lg:mt-10" x-data="{
         items: [
             { id: 1, img: '/images/blog/1.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
             { id: 2, img: '/images/blog/2.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
@@ -152,7 +133,26 @@
                         1024: { slidesPerView: 3 }
                     }
                 });
+
+                this.initParallax();
             });
+        },
+        initParallax() {
+            const handleScroll = () => {
+                if (window.innerWidth >= 768) return;
+                const items = this.$el.querySelectorAll('.js-parallax-item');
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    const winH = window.innerHeight;
+                    const img = item.querySelector('img');
+                    if (rect.top < winH && rect.bottom > 0 && img) {
+                        const progress = 1 - (rect.top + rect.height) / (winH + rect.height);
+                        const scale = 1 + (Math.max(0, Math.min(progress, 1)) * 0.20);
+                        img.style.transform = `scale(${scale})`;
+                    }
+                });
+            };
+            window.addEventListener('scroll', () => requestAnimationFrame(handleScroll), { passive: true });
         }
     }" x-init="initSwiper()">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] uppercase mb-[10px] text-dark-bg">
@@ -162,7 +162,7 @@
         <div class="swiper blog-swiper pb-[60px]">
             <div class="swiper-wrapper">
                 <template x-for="(item, index) in items" :key="index">
-                    <div class="swiper-slide">
+                    <div class="swiper-slide js-parallax-item">
                         <div
                             class="relative group max-md:gap-[5px] flex flex-col overflow-hidden transition-all duration-500 gap-[10px] text-[14px]">
                             <div class="h-[206px] max-md:h-[169px] overflow-hidden">
@@ -201,7 +201,7 @@
             </div>
         </div>
     </section>
-    <footer class="mt-[80px] max-lg:mt-[50px]" x-data="{
+    <footer class="mt-[80px] max-lg:mt-10" x-data="{
     contacts: [
         {
             id: 1,
@@ -230,7 +230,7 @@
     ]
 }">
         <div class="bg-l-white">
-            <div class="container max-lg:pt-[40px] max-lg:pb-[50px] max-sm:pt-[50px] py-[80px]">
+            <div class="container max-lg:pt-[40px] max-lg:pb-10 max-sm:pt-10 py-[80px]">
                 <h2
                     class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                     Поможем с выбором камня</h2>
@@ -261,7 +261,7 @@
             </div>
         </div>
         <div class="bg-f-bg relative">
-            <div class="container pt-[50px]">
+            <div class="container pt-10">
                 <div class="flex max-[1200px]:flex-col max-[1200px]:items-start gap-10 items-center justify-between">
                     <h2 class="font-medium text-white text-[32px]"><a href="/">Географика</a></h2>
                     <nav class="max-[1200px]:w-full">

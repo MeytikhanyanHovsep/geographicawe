@@ -148,37 +148,43 @@ document.addEventListener('alpine:init', () => {
     </div>
     `
 
-  document.body.innerHTML += `  <div x-data="{ 
+  document.body.innerHTML += `<div x-data="{ 
     showButton: false, 
-    lastY: 0,
+    lastScrollY: 0,
     init() {
-        const observer = new IntersectionObserver((entries) => {
-            const isNotAtTop = !entries[0].isIntersecting;
-            
-            window.addEventListener('wheel', (e) => {
-                if (isNotAtTop && e.deltaY > 0) this.showButton = true;
-                if (e.deltaY < 0) this.showButton = false;
-            });
+        this.lastScrollY = window.pageYOffset;
+    },
+    handleScroll() {
+        const currentScrollY = window.pageYOffset;
+        
+        if (currentScrollY < 10) {
+            this.showButton = false;
+        } 
+        else if (currentScrollY > this.lastScrollY) {
+            this.showButton = true;
+        } 
+        else if (currentScrollY < this.lastScrollY) {
+            this.showButton = false;
+        }
 
-            window.addEventListener('touchmove', (e) => {
-                let curY = e.touches[0].clientY;
-                if (isNotAtTop && curY < this.lastY) this.showButton = true;
-                if (curY > this.lastY) this.showButton = false;
-                this.lastY = curY;
-            }, { passive: true });
-        });
-        observer.observe(this.$refs.topMarker);
+        this.lastScrollY = currentScrollY;
     }
-}">
-    <div x-ref="topMarker" class="absolute top-0 h-1 w-1"></div>
+}" 
+@scroll.window.throttle.20ms="handleScroll()">
 
-    <img src="/images/icons/arrow-top.svg" x-show="showButton" x-cloak
-        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10"
-        x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-end="opacity-0" @click="window.scrollTo({ top: 0, behavior: 'smooth' }); showButton = false"
-        class="cursor-pointer z-50 bottom-40 max-lg:bottom-[130px] max-md:right-5 max-[1550px]:right-20  right-[calc((100%-1420px)/4)] [1550px]:translate-x-1/2 fixed w-[60px] object-contain"
+    <img src="/images/icons/arrow-top.svg" 
+        x-show="showButton" 
+        x-cloak
+        x-transition:enter="transition ease-out duration-300" 
+        x-transition:enter-start="opacity-0 translate-y-10"
+        x-transition:enter-end="opacity-100 translate-y-0" 
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-end="opacity-0" 
+        @click="window.scrollTo({ top: 0, behavior: 'smooth' }); showButton = false"
+        class="cursor-pointer z-50 bottom-40 max-lg:bottom-[130px] max-md:right-5 max-[1520px]:right-20  right-[calc((100%-1420px)/4)] [1520px]:translate-x-1/2 fixed w-[60px] object-contain"
         alt="Top" />
-  </div>
+
+</div>
     
   `
 });
@@ -241,18 +247,12 @@ class ProductCard extends HTMLElement {
         <div class="group relative flex flex-col overflow-hidden transition-all duration-500 gap-2">
           <div class="overflow-hidden">
             <img src="${img}" alt="${name}"
-                class="w-full max-sm:h-[162px] h-[188px] object-cover transition-transform duration-500 will-change-transform group-hover:scale-110">
+                class="stone-image w-full max-sm:h-[162px] h-[188px] object-cover transition-transform duration-700 ease-out will-change-transform group-hover:scale-110">
           </div>
           <ul class="w-full mt-[10px] grid grid-cols-3 gap-[18px]">
-            <li class="h-[28px] text-[14px] grid place-items-center border border-primary/50 text-center">
-              гранит
-            </li>
-            <li class="h-[28px] text-[14px] grid place-items-center border border-primary/50 text-center">
-              песчаник
-            </li>
-            <li class="h-[28px] text-[14px] grid place-items-center border border-primary/50 text-center">
-              камень
-            </li>
+            <li class="h-[28px] text-[14px] grid place-items-center border border-primary/50 text-center">гранит</li>
+            <li class="h-[28px] text-[14px] grid place-items-center border border-primary/50 text-center">песчаник</li>
+            <li class="h-[28px] text-[14px] grid place-items-center border border-primary/50 text-center">камень</li>
           </ul>
           <h3 class="text-[14px] font-bold text-dark tracking-wide">${name}</h3>
           <p class="text-dark leading-[130%] max-sm:tracking-[0.3px] max-w-[353px] text-[14px] mb-[7px]">
@@ -269,6 +269,36 @@ class ProductCard extends HTMLElement {
           </button>
         </div>
     `;
+
+    this.initParallax();
+  }
+
+  initParallax() {
+    const img = this.querySelector('.stone-image');
+
+    const handleParallax = () => {
+      if (window.innerWidth >= 768) {
+        if (img.style.transform !== '') img.style.transform = '';
+        return;
+      }
+
+      const rect = this.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        const scrollFraction = (windowHeight - rect.top) / (windowHeight + rect.height);
+        const scale = 1 + (Math.max(0, Math.min(scrollFraction, 1)) * 0.25);
+
+        img.style.transform = `scale(${scale})`;
+      }
+    };
+
+    window.addEventListener('scroll', () => {
+      window.requestAnimationFrame(handleParallax);
+    }, { passive: true });
+
+    // Также вызываем при ресайзе, чтобы сразу включить/выключить эффект
+    window.addEventListener('resize', handleParallax);
   }
 }
 

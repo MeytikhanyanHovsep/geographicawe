@@ -45,6 +45,10 @@
                     spaceBetween: 20,
                     slidesPerGroup: 1,
                     loop: true,
+                    autoplay: {
+                        delay: 7000,
+                        disableOnInteraction: false,
+                    },
                     pagination: {
                         el: '.swiper-pagination',
                         clickable: true,
@@ -53,7 +57,30 @@
                         nextEl: '.swiper-next',
                         prevEl: '.swiper-prev',
                     },
+                    breakpoints: {
+                        768: {
+                            autoplay: false,
+                        }
+                    }
                 });
+
+                const handleScroll = () => {
+                    if (window.innerWidth >= 768) return;
+                    const items = this.$el.querySelectorAll('.js-parallax-border-item');
+                    items.forEach(item => {
+                        const rect = item.getBoundingClientRect();
+                        
+                        if (rect.top < 50) {
+                            item.classList.remove('border-primary');
+                            item.classList.add('border-transparent');
+                        } else {
+                            item.classList.add('border-primary');
+                            item.classList.remove('border-transparent');
+                        }
+                    });
+                };
+                window.addEventListener('scroll', () => requestAnimationFrame(handleScroll), { passive: true });
+                handleScroll();
             });
         }
     }" x-init="initSwiper()">
@@ -70,10 +97,10 @@
                 <template x-for="(item, index) in product" :key="index">
                     <div class="swiper-slide">
                         <div
-                            class="border-2 border-transparent hover:border-primary transition-colors duration-300  max-h-[350px] overflow-hidden max-lg:max-h-[377px] max-md:min-h-[198px]">
+                            class="js-parallax-border-item border-2 border-transparent hover:border-primary transition-colors duration-500 max-h-[350px] overflow-hidden max-lg:max-h-[377px] max-md:min-h-[198px]">
 
                             <img :src="item"
-                                class=" max-h-[350px] w-full max-lg:max-h-[377px] max-md:min-h-[198px] object-cover"
+                                class="max-h-[350px] w-full max-lg:max-h-[377px] max-md:min-h-[198px] object-cover"
                                 alt="">
                         </div>
                     </div>
@@ -91,18 +118,16 @@
                 <div class="swiper-pagination static! w-auto! flex items-center gap-[10px]"></div>
 
                 <button
-                    class="swiper-next  max-md:hidden w-[60px] h-[60px] border border-primary rounded-full flex items-center justify-center hover:bg-primary group cursor-pointer transition-all">
+                    class="swiper-next max-md:hidden w-[60px] h-[60px] border border-primary rounded-full flex items-center justify-center hover:bg-primary group cursor-pointer transition-all">
                     <img src="/images/icons/arrow-right.svg" class="w-[6px] group-hover:brightness-0 group-hover:invert"
                         alt=">">
                 </button>
             </div>
         </div>
 
-
         <div class="flex gap-[80px] max-xl:gap-[27px] max-xl:flex-col items-end justify-between md:-mt-[60px]">
-
             <div class="flex flex-col gap-[14px]">
-                <div class="max-w-max">
+                <div class="md:max-w-max">
                     <h2 class="text-[32px] max-md:text-[24px] uppercase font-medium text-dark tracking-wide">Слэбы из
                         гранита</h2>
 
@@ -119,8 +144,8 @@
                     </ul>
                 </div>
                 <p class="text-[30px] font-bold"><span class="opacity-50 text-5">от</span> 7 476 ₽</p>
-                <p class="font-semibold text-[22px]">Описание</p>
-                <p class="text-[14px] leading-[130%]">Благодаря превосходным качествам, изделия из гранита находят
+            <p class="font-semibold text-[22px]">Описание</p>
+            <p class="text-[14px] leading-[130%]">Благодаря превосходным качествам, изделия из гранита находят
                     широкое применение во всех сферах жизнедеятельности человека. Его отличают: стойкость к механическим
                     повреждениям, декоративность, прочность.</p>
                 <h6 class="font-bold text-[14px] text-dark mt-1">Среди видов гранита наиболее распространенны</h6>
@@ -171,7 +196,7 @@
                 </template>
             </div>
             <form
-                class="min-w-[452px] max-xl:min-w-full max-xl:max-w-full max-w-[452px] max-md:px-[22px] px-[36px] py-6 w-full  flex bg-l-white flex-col gap-3 max-sm:gap-[10px]"
+                class="min-w-[452px] max-xl:min-w-full max-xl:max-w-full max-w-[452px] max-md:px-[22px] px-[36px] py-6 w-full flex bg-l-white flex-col gap-3 max-sm:gap-[10px]"
                 action="#">
                 <h4 class="text-[24px] max-sm:text-center max-sm:text-[17.5px] font-semibold">Заказать консультацию</h4>
                 <p
@@ -189,35 +214,36 @@
                     class="border border-border px-[20px] h-[60px] max-md:px-[16px] max-md:text-[12px] max-sm:h-[44px] leading-[100%] outline-none lining-nums">
 
                 <textarea placeholder="Сообщение"
-                    class="border px-[20px] h-[80px] max-md:p-[16px] max-md:text-[12px] max-sm:h-[56px] leading-[100%]  border-border pt-[20px] outline-none resize-none"></textarea>
+                    class="border px-[20px] h-[80px] max-md:p-[16px] max-md:text-[12px] max-sm:h-[56px] leading-[100%] border-border pt-[20px] outline-none resize-none"></textarea>
 
                 <button type="submit"
                     class="h-[60px] max-sm:h-[54px] font-bold uppercase text-[14px] flex items-center justify-center w-full bg-primary hover:bg-h-primary transition-all duration-300 cursor-pointer text-dark max-sm:text-[12px] hover:brightness-110 active:scale-95">
                     Отправить
                 </button>
-                <p class="text-[14px] max-sm:text-[12px] opacity-60">Нажимая "Отправить заявку", вы принимаете условия
-                    <a href="#" class=" underline cursor-pointer ">пользовательского
+                <p class="text-[14px] max-sm:text-[12px] opacity-60">Нажимая &quot;Отправить заявку&quot;, вы принимаете
+                    условия
+                    <a href="#" class="underline cursor-pointer ">пользовательского
                         соглашения
                     </a>
                 </p>
             </form>
         </div>
         <div class="flex max-xl:hidden justify-between pr-[89px] items-center w-full mt-10" x-data="{
-            params:[
-                {
-                    img:'/images/assets/structure.svg', title:'Структура зерна', value:'Мелкая'
-                },
-                {
-                    img:'/images/assets/flag.svg', title:'Назначение', value:'Для столов'
-                },
-                {
-                    img:'/images/assets/figures.svg', title:'Вид', value:'Гранит'
-                },
-                {
-                    img:'/images/assets/color.svg', title:'Цвет', value:'Серый'
-                },
-            ]
-        }">
+        params:[
+            {
+                img:'/images/assets/structure.svg', title:'Структура зерна', value:'Мелкая'
+            },
+            {
+                img:'/images/assets/flag.svg', title:'Назначение', value:'Для столов'
+            },
+            {
+                img:'/images/assets/figures.svg', title:'Вид', value:'Гранит'
+            },
+            {
+                img:'/images/assets/color.svg', title:'Цвет', value:'Серый'
+            },
+        ]
+    }">
             <template x-for="(item, index) in params" :key="index">
                 <div class="gap-5 flex items-center">
                     <img class="w-[90px] object-contain" :src="item.img" :alt="item.title" />
@@ -229,7 +255,6 @@
             </template>
         </div>
     </main>
-
 
     <section class="container pt-[80px]" x-data="{
         products: [
@@ -243,7 +268,7 @@
             { id: 8, name: 'Гранит', img: '/images/stones/granite.jpg' },
         ],
         initSwiper() {
-                this.$nextTick(() => {
+            this.$nextTick(() => {
                 new Swiper('.products-swiper', {
                     slidesPerView: 1,
                     spaceBetween: 20,
@@ -251,12 +276,12 @@
                     loop: true,
                     breakpoints: {
                       1250: {
-                    slidesPerGroup: 2,
-                    slidesPerView: 4,
+                        slidesPerGroup: 2,
+                        slidesPerView: 4,
                       },
                       700: {
-                    slidesPerGroup: 2,
-                    slidesPerView: 2,
+                        slidesPerGroup: 2,
+                        slidesPerView: 2,
                       }
                     },
                     pagination: {
@@ -268,7 +293,26 @@
                         prevEl: '.swiper-prev',
                     },
                 });
+
+                this.initParallax();
             });
+        },
+        initParallax() {
+            const handleScroll = () => {
+                if (window.innerWidth >= 768) return;
+                const items = this.$el.querySelectorAll('.js-parallax-item');
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    const winH = window.innerHeight;
+                    const img = item.querySelector('img');
+                    if (rect.top < winH && rect.bottom > 0 && img) {
+                        const progress = 1 - (rect.top + rect.height) / (winH + rect.height);
+                        const scale = 1 + (Math.max(0, Math.min(progress, 1)) * 0.20);
+                        img.style.transform = `scale(${scale})`;
+                    }
+                });
+            };
+            window.addEventListener('scroll', () => requestAnimationFrame(handleScroll), { passive: true });
         }
     }" x-init="initSwiper()">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
@@ -277,9 +321,9 @@
         <div class="swiper products-swiper pb-[100px]">
             <div class="swiper-wrapper">
                 <template x-for="item in products" :key="item.id">
-                    <div class="swiper-slide">
+                    <div class="swiper-slide js-parallax-item">
                         <div
-                            class="group max-h-min relative flex flex-col overflow-hidden  transition-all duration-500 gap-2">
+                            class="group max-h-min relative flex flex-col overflow-hidden transition-all duration-500 gap-2">
                             <div class="overflow-hidden">
                                 <img :src="item.img" :alt="item.name"
                                     class="w-full max-sm:h-[162px] h-[188px] object-cover transition-all will-change-transform duration-300 group-hover:scale-110">
@@ -300,11 +344,8 @@
                             </ul>
                             <h3 class="text-[14px] font-bold text-dark tracking-wide" x-text="item.name"></h3>
                             <p class="text-dark leading-[130%] max-sm:tracking-[0.3px] text-[14px] mb-[7px]">Благодаря
-                                превосходным
-                                качествам, изделия из гранита
-                                находят
-                                широкое применение во всех
-                                сферах жизнедеятельности человека</p>
+                                превосходным качествам, изделия из гранита находят широкое применение во всех сферах
+                                жизнедеятельности человека</p>
                             <div class="flex mb-[10px] gap-[17px] justify-center items-center text-[14px] text-dark">
                                 <span class="font-bold whitespace-nowrap">от 7 950 руб. / м²</span>
                                 <p class="bg-dark/4 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center">
@@ -316,31 +357,25 @@
                                 class="h-[55px] bg-transparent! text-dark cursor-pointer font-bold text-[14px] border-2 border-primary! hover:bg-primary! transition-all ">
                                 Заказать
                             </button>
-
                         </div>
                     </div>
                 </template>
             </div>
 
             <div class="flex items-center justify-center gap-[30px] mt-[30px]">
-
                 <button
                     class="swiper-prev w-[60px] h-[60px] border border-primary rounded-full flex items-center justify-center transition-all hover:bg-primary group cursor-pointer outline-none">
                     <img src="/images/icons/arrow-right.svg" class="w-[6px] rotate-180 object-contain" alt=">">
                 </button>
-
                 <div class="swiper-pagination static! w-auto! flex! items-center gap-[7px]"></div>
-
                 <button
                     class="swiper-next w-[60px] h-[60px] border border-primary rounded-full flex items-center justify-center transition-all hover:bg-primary group cursor-pointer outline-none">
                     <img src="/images/icons/arrow-right.svg" class="w-[6px] object-contain" alt=">">
-
                 </button>
-
             </div>
         </div>
     </section>
-    <footer class="mt-[80px] max-lg:mt-[50px]" x-data="{
+    <footer class="mt-[80px] max-lg:mt-10" x-data="{
     contacts: [
         {
             id: 1,
@@ -369,7 +404,7 @@
     ]
 }">
         <div class="bg-l-white">
-            <div class="container max-lg:pt-[40px] max-lg:pb-[50px] max-sm:pt-[50px] py-[80px]">
+            <div class="container max-lg:pt-[40px] max-lg:pb-10 max-sm:pt-10 py-[80px]">
                 <h2
                     class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                     Поможем с выбором камня</h2>
@@ -400,7 +435,7 @@
             </div>
         </div>
         <div class="bg-f-bg relative">
-            <div class="container pt-[50px]">
+            <div class="container pt-10">
                 <div class="flex max-[1200px]:flex-col max-[1200px]:items-start gap-10 items-center justify-between">
                     <h2 class="font-medium text-white text-[32px]"><a href="/">Географика</a></h2>
                     <nav class="max-[1200px]:w-full">

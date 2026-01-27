@@ -40,10 +40,10 @@
                 <a href="/blog" class="text-white"> Блог</a>
             </nav>
             <h2
-                class="text-white max-w-[1000px] max-sm:text-[24px] font-medium text-[70px] uppercase tracking-wide max-lg:text-[56px] leading-[115%]">
+                class="text-white max-w-[1000px] max-md:text-[27px] max-md:font-bold md:font-medium text-[70px] uppercase tracking-wide max-lg:text-[56px] leading-[115%]">
                 Блог о живом камне</h2>
             <p
-                class="lg:max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-medium">
+                class="lg:max-w-[60%] leading-[140%] mt max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-semibold md:font-medium">
                 Вопрос, где купить гранит, цена которого будет доступной и соответствовать качеству, многих приводит к
                 нам! Мы готовы предложить материал отличного качества в ассортименте!</p>
             <a href="#"
@@ -66,16 +66,32 @@
             {img: '/images/blog/1.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
             {img: '/images/blog/2.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
             {img: '/images/blog/3.jpg', title:'Колонны из натурального камня – как выбрать для своего дома', desc: 'Благодаря превосходным качествам, изделия из гранита находят широкое применение во всех сферах жизнедеятельности человека', views:3451, date:'05.11.2022' },
-        ]
+        ],
+        init() {
+            const handleScroll = () => {
+                if (window.innerWidth >= 768) return;
+                const cards = this.$el.querySelectorAll('.js-blog-item');
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const winH = window.innerHeight;
+                    const img = card.querySelector('.js-parallax-img');
+                    if (rect.top < winH && rect.bottom > 0 && img) {
+                        const progress = 1 - (rect.top + rect.height) / (winH + rect.height);
+                        const scale = 1 + (Math.max(0, Math.min(progress, 1)) * 0.20);
+                        img.style.transform = `scale(${scale})`;
+                    }
+                });
+            };
+            window.addEventListener('scroll', () => requestAnimationFrame(handleScroll), { passive: true });
+        }
      }">
 
             <template x-for="(item,index) in items" :key="index">
                 <div :class="index===2? 'max-lg:hidden': ''"
-                    class="relative group max-md:gap-[5px] flex flex-col overflow-hidden  transition-all duration-500 gap-[10px] text-[14px]">
-
+                    class="js-blog-item relative group max-md:gap-[5px] flex flex-col overflow-hidden transition-all duration-500 gap-[10px] text-[14px]">
                     <div class="h-[206px] max-md:h-[169px] overflow-hidden">
                         <img :src="item.img" :alt="index"
-                            class="will-change-transform  group-hover:scale-110 transition-all duration-500 w-full h-full object-cover">
+                            class="js-parallax-img will-change-transform group-hover:scale-110 transition-all duration-500 w-full h-full object-cover">
                     </div>
                     <div class="flex items-center mt-[7px] mb-[3px] gap-[8px] text-[14px] leading-[100%]">
                         <img src="/images/icons/clock.svg" class="w-5 object-contain" alt="date">
@@ -89,7 +105,6 @@
                         class="h-[55px] bg-transparent text-dark cursor-pointer font-bold text-[14px] border-2 border-primary grid place-items-center hover:bg-primary transition-all ">
                         Читать далее
                     </button>
-
                 </div>
             </template>
         </div>

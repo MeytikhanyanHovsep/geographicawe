@@ -32,7 +32,7 @@
         class="sm:border-b absolute max-sm:flex-col max-sm:flex z-20 top-0 left-0 max-sm:h-[112px] max-sm:border-0 h-20 border-white/30 w-full">
     </header>
     <main
-        class="h-[890px] max-md:pt-[130px] max-md:h-[412px] max-lg:h-[500px] pt-[100px] max-xl:h-auto  bg-center bg-cover bg-[url(/images/bgs/about.jpg)]">
+        class="h-[890px] max-md:pt-[130px] max-md:h-[412px] max-lg:h-[500px] pt-[100px]   bg-center bg-cover relative overflow-hidden bg-[url(/images/bgs/about-2.jpg)] lg:bg-[url(/images/bgs/about.jpg)]">
         <div class="container flex h-full justify-start flex-col gap-4">
             <nav class="text-white/50 max-md:mb-4 max-lg:mb-12 text-[14px] mb-[114px] ">
                 <a href="/">Главная</a>
@@ -40,22 +40,22 @@
                 <a href="/about" class="text-white"> О компании</a>
             </nav>
             <h2
-                class="text-white max-sm:max-w-[290px] max-lg:text-[57px] max-sm:text-[24px] font-medium text-[70px] uppercase tracking-wide leading-[115%]">
+                class="text-white max-md:max-w-[290px] max-lg:text-[57px] max-md:text-[27px] max-md:font-bold md:font-medium text-[70px] uppercase tracking-wide leading-[115%]">
                 О компании</h2>
             <p
-                class="max-w-[587px] leading-[140%] max-sm:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-semibold">
+                class="max-w-[587px] leading-[140%] max-md:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-semibold">
                 Наша
                 компания занимается добычей натурального камня и производством изделий из него. Мы сделаем замеры и </p>
             <a href="#"
-                class="h-[60px] max-sm:h-[56px] max-sm:w-full font-bold uppercase text-[14px] grid place-items-center w-[320px] bg-primary hover:bg-h-primary transition-all duration-300 text-dark">
+                class="h-[60px] max-md:h-[56px] max-md:w-full font-bold uppercase text-[14px] grid place-items-center w-[320px] bg-primary hover:bg-h-primary transition-all duration-300 text-dark">
                 Записаться на консультацию
             </a>
         </div>
     </main>
-    <div class="pt-[50px] max-w-screen overflow-hidden pb-[64px] ">
+    <div class="pt-[40px] max-w-screen overflow-hidden pb-[64px] ">
         <div class="container max-xl max-w-full relative overflow-hidden">
             <span
-                class="absolute w-[180px] z-20 right-0 h-full bg-linear-to-r from-transparent [1350px]:hidden to-white">
+                class="absolute w-[180px] z-10 right-0 h-full bg-linear-to-r from-transparent [1350px]:hidden to-white">
 
             </span>
             <h2
@@ -64,7 +64,7 @@
             <div
                 class="grid -z-1 max-md:grid-cols-2 max-md:gap-0 max-md:min-w-[550px] min-w-[1284px]  relative mt-[-30px] grid-cols-3">
                 <div
-                    class="w-[115%]  z-1 line-detail left-1/2 top-[121px] -translate-x-1/2 -rotate-[7.44deg] h-px absolute">
+                    class="w-[115%]  z-1 line-detail max-md:-rotate-[3.5deg] max-sm:-rotate-[4.5deg] left-1/2 top-[122px] -translate-x-1/2 -rotate-[7.75deg] h-px absolute">
 
                 </div>
 
@@ -190,7 +190,7 @@
         </div>
     </section>
 
-    <section class="bg-l-white max-lg:py-[50px] max-md:pb-[32px] py-[80px]" x-data="{
+    <section class="bg-l-white max-lg:py-[40px] max-md:pb-[32px] py-[80px]" x-data="{
     features: [
         { 
             id: 1, 
@@ -243,7 +243,7 @@
         </div>
     </section>
 
-    <section class="container max-md:pt-[50px] pt-[80px]" x-data="{
+    <section class="container max-md:pt-[40px] pt-[80px]" x-data="{
         team: [
             {  img: '/images/team/1.jpg', name:'Андрей Аников', profession:'Испонительный директор' },
             {  img: '/images/team/2.jpg', name:'Андрей Аников', profession:'Испонительный директор' },
@@ -274,6 +274,9 @@
                         768: { slidesPerView: 3,
                             slidesPerGroup:1,
                          },
+                         620: { slidesPerView: 2,
+                            slidesPerGroup:1,
+                         },
                         1024: { slidesPerView: 4,slidesPerGroup:2 }
                     }
                 });
@@ -281,7 +284,7 @@
         }
     }" x-init="initSwiper()">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] uppercase mb-[10px] text-dark-bg">
-            Похожие публикации
+            Команда профессионалов
         </h2>
 
         <div class="swiper team-swiper pb-[80px]">
@@ -314,7 +317,7 @@
         </div>
     </section>
 
-    <section class="container max-lg:pb-[60px] max-md:pt-[50px]  py-[80px]" x-data="{
+    <section class="container max-lg:pb-[60px] max-md:pt-[40px]  py-[80px]" x-data="{
         partners: [
           {image:'/images/partners/1.png'},
           {image:'/images/partners/2.png'},
@@ -376,7 +379,7 @@
     </section>
 
 
-    <footer class="mt-[80px] max-lg:mt-[50px]" x-data="{
+    <footer class="mt-[80px] max-lg:mt-[40px]" x-data="{
     contacts: [
         {
             id: 1,
@@ -405,7 +408,7 @@
     ]
 }">
         <div class="bg-l-white">
-            <div class="container max-lg:pt-[40px] max-lg:pb-[50px] max-sm:pt-[50px] py-[80px]">
+            <div class="container max-lg:pt-[40px] max-lg:pb-[40px] max-sm:pt-[40px] py-[80px]">
                 <h2
                     class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                     Поможем с выбором камня</h2>
@@ -436,7 +439,7 @@
             </div>
         </div>
         <div class="bg-f-bg relative">
-            <div class="container pt-[50px]">
+            <div class="container pt-[40px]">
                 <div class="flex max-[1200px]:flex-col max-[1200px]:items-start gap-10 items-center justify-between">
                     <h2 class="font-medium text-white text-[32px]"><a href="/">Географика</a></h2>
                     <nav class="max-[1200px]:w-full">
@@ -504,7 +507,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/js/range.js"></script>
 
 </body>
 

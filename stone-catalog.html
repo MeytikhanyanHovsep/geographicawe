@@ -44,7 +44,7 @@
                 class="text-white max-lg:text-[52px] max-sm:max-w-[300px] max-md:text-[24px] font-medium text-[70px] max-lg:max-w-[670px] uppercase tracking-wide leading-[115%]">
                 Каталог натурального камня</h2>
             <p
-                class="max-w-[60%] max-lg:min-w-full leading-[140%] mt max-md:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white font-medium">
+                class="max-w-[60%] max-lg:min-w-full leading-[140%] mt max-md:text-[14px] mt-[2px] mb-[15px] text-[23px] text-white max-md:font-semibold md:font-medium">
                 Вопрос,
                 где купить гранит, цена которого будет доступной и соответствовать качеству, многих приводит к нам! Мы
                 готовы
@@ -71,8 +71,7 @@
             x-data="{ moreMenuOpen: false }">
             <template x-for="(cat, index) in categories" :key="index">
                 <div :class="index > 2 ? 'max-md:hidden' :''" class="flex items-center flex-1 h-full">
-                    <button
-                        class="flex-1 max-md:text-[12px] max-lg:h-[50px] h-[60px] uppercase transition-all duration-300"
+                    <button class="flex-1 max-md:text-[12px] max-lg:h-10 h-[60px] uppercase transition-all duration-300"
                         :class="activeCategory === cat ? ' bg-f-bg! font-bold text-white' : 'text-gray-800 tracking-[0.2px] font-medium hover:bg-gray-100'"
                         @click="activeCategory = cat" x-text="cat">
                     </button>
@@ -87,7 +86,7 @@
             <div class="flex md:hidden items-center justify-center gap-[10px] min-w-[64px] h-full relative"
                 @click.outside="moreMenuOpen = false">
                 <button @click="moreMenuOpen = !moreMenuOpen"
-                    class="flex-1 flex items-center justify-center max-lg:h-[50px] h-[60px] transition-all duration-300 uppercase text-gray-800 tracking-[0.2px] font-medium hover:bg-gray-100 max-md:text-[12px]">
+                    class="flex-1 flex items-center justify-center max-lg:h-10 h-[60px] transition-all duration-300 uppercase text-gray-800 tracking-[0.2px] font-medium hover:bg-gray-100 max-md:text-[12px]">
                     Ещё
                     <svg class="flex-none w-3 h-3 transition-transform duration-300"
                         :class="moreMenuOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +95,7 @@
                 </button>
 
                 <div x-show="moreMenuOpen" x-transition
-                    class="absolute top-full right-0 w-[150px] bg-white shadow-xl border border-gray-100 z-[110]"
+                    class="absolute top-full right-0 w-[150px] bg-white shadow-xl border border-gray-100 z-110"
                     style="display: none;">
                     <div class="flex flex-col w-full">
                         <template x-for="(cat, index) in categories" :key="'more-' + index">
@@ -142,7 +141,7 @@
                         x-transition:enter-end="opacity-100 translate-y-0" @click.stop style="display: none;">
                         <template x-for="option in sort.options" :key="option">
                             <button
-                                class="flex text-center items-center px-3 py-[14px] text-sm text-gray-600 hover:bg-gray-50 hover:text-black transition-colors border-b border-gray-50 last:border-none"
+                                class="flex text-center items-center px-3 py-[14px] text-sm text-gray-600 hover:bg-gray-200 hover:text-black transition-colors border-b border-gray-50 last:border-none"
                                 @click="sort.label = option; openedSort = null">
                                 <span x-text="option"></span>
                             </button>
@@ -153,7 +152,7 @@
         </div>
 
         <div x-show="asideOpen" x-transition.opacity @click="asideOpen = false"
-            class="fixed inset-0 bg-black/50 z-[99] lg:hidden" style="display: none;"></div>
+            class="fixed inset-0 bg-black/50 z-99 lg:hidden" style="display: none;"></div>
 
         <section class="pb-20 max-lg:items-stretch items-start flex gap-10 mt-10" x-data="{
             groups: [
@@ -241,17 +240,36 @@
 
 
     <section class="bg-l-white max-lg:py-[60px] max-md:py-[50px] py-20" x-data="{
-        item:{ name: 'Оникс', img: '/images/stones/onyx.jpg' }
-    }">
+        item:{ name: 'Оникс', img: 'images/stones/onyx.jpg' },
+        scrollScale: 1,
+        init() {
+            const handleScroll = () => {
+                const section = this.$el;
+                const rect = section.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                const scrollProgress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+
+                if (scrollProgress > 0 && scrollProgress < 1) {
+                    this.scrollScale = 1 + (scrollProgress * 0.2);
+                } else if (scrollProgress <= 0) {
+                    this.scrollScale = 1;
+                } else {
+                    this.scrollScale = 1.1;
+                }
+            };
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+        }
+    }" x-init="init()">
         <div class="container">
             <h2
                 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                 Новинки</h2>
             <div class="flex gap-5 max-md:flex-col justify-between">
-                <div class="group max-h-min relative flex flex-col overflow-hidden  transition-all duration-500 gap-2">
+                <div class="group max-h-min relative flex flex-col overflow-hidden transition-all duration-500 gap-2">
                     <div class="overflow-hidden">
-                        <img src="/images/stones/onyx.jpg" alt="item.name"
-                            class="w-full max-sm:h-[162px] h-[188px] object-cover transition-all duration-300 group-hover:scale-110">
+                        <img :src="item.img" :alt="item.name" :style="`transform: scale(${scrollScale});`"
+                            class="w-full max-sm:h-[162px] h-[188px] object-cover transition-transform duration-300 group-hover:scale-110">
                     </div>
                     <ul class="w-full mt-[10px] grid grid-cols-3 gap-[18px]">
                         <li class="h-[28px] text-[14px] grid place-items-center border border-primary/50! text-center">
@@ -278,13 +296,11 @@
                         </p>
                     </div>
                     <button
-                        class="h-[55px] bg-primary! text-dark cursor-pointer font-bold text-[14px] hover:bg-h-primary! transition-all  ">
+                        class="h-[55px] bg-primary! text-dark cursor-pointer font-bold text-[14px] hover:bg-h-primary! transition-all ">
                         Заказать
                     </button>
-
                 </div>
-                <div class="grid  gap-4 grid-rows-3">
-
+                <div class="grid gap-4 grid-rows-3">
                     <div class="flex flex-col gap-1 border-b border-primary/50! pb-5">
                         <h5 class="text-[14px] font-bold text-dark tracking-wide" x-text="item.name"></h5>
                         <p class="text-dark leading-[130%] max-sm:tracking-[0.3px] text-[14px] mb-[3px]">Благодаря
@@ -294,18 +310,17 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
+                            class="flex gap-[10px] whitespace-nowrap! justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
                             <span class="font-bold whitespace-nowrap tracking-[0.1px] max-lg:w-full">от 7 950 руб. /
                                 м²</span>
                             <p
                                 class="bg-dark/4 max-lg:flex-1 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center">
                                 <span class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span>
-                                хорошая
-                                цена
+                                хорошая цена
                             </p>
                             <p
                                 class="bg-dark/4 max-lg:flex-1 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center">
-                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain">
                                 заказывали: 123
                             </p>
                         </div>
@@ -319,18 +334,17 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
+                            class="flex gap-[10px] whitespace-nowrap! justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
                             <span class="font-bold whitespace-nowrap tracking-[0.1px] max-lg:w-full">от 7 950 руб. /
                                 м²</span>
                             <p
                                 class="bg-dark/4 max-lg:flex-1 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center">
                                 <span class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span>
-                                хорошая
-                                цена
+                                хорошая цена
                             </p>
                             <p
                                 class="bg-dark/4 max-lg:flex-1 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center">
-                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain">
                                 заказывали: 123
                             </p>
                         </div>
@@ -344,24 +358,23 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
+                            class="flex gap-[10px] whitespace-nowrap! justify-center items-center text-[14px] text-dark max-lg:flex-wrap">
                             <span class="font-bold whitespace-nowrap tracking-[0.1px] max-lg:w-full">от 7 950 руб. /
                                 м²</span>
                             <p
                                 class="bg-dark/4 max-lg:flex-1 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center">
                                 <span class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span>
-                                хорошая
-                                цена
+                                хорошая цена
                             </p>
                             <p
                                 class="bg-dark/4 max-lg:flex-1 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center">
-                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                <img src="/images/icons/checked.svg" class="w-[12px] object-contain">
                                 заказывали: 123
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="grid max-xl:hidden  gap-4 grid-rows-3">
+                <div class="grid max-xl:hidden gap-4 grid-rows-3">
                     <div class="flex flex-col gap-1 border-b border-primary/50! pb-5">
                         <h5 class="text-[14px] font-bold text-dark tracking-wide" x-text="item.name"></h5>
                         <p class="text-dark leading-[130%] max-sm:tracking-[0.3px] text-[14px] mb-[3px]">Благодаря
@@ -371,13 +384,13 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark">
+                            class="flex gap-[10px] whitespace-nowrap! justify-center items-center text-[14px] text-dark">
                             <span class="font-bold whitespace-nowrap tracking-[0.1px]">от 7 950 руб. / м²</span>
                             <p class="bg-dark/4 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center"><span
                                     class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span> хорошая
                                 цена</p>
                             <p class="bg-dark/4 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center"><img
-                                    src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                    src="/images/icons/checked.svg" class="w-[12px] object-contain">
                                 заказывали: 123</p>
                         </div>
                     </div>
@@ -390,13 +403,13 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark">
+                            class="flex gap-[10px] whitespace-nowrap! justify-center items-center text-[14px] text-dark">
                             <span class="font-bold whitespace-nowrap tracking-[0.1px]">от 7 950 руб. / м²</span>
                             <p class="bg-dark/4 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center"><span
                                     class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span> хорошая
                                 цена</p>
                             <p class="bg-dark/4 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center"><img
-                                    src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                    src="/images/icons/checked.svg" class="w-[12px] object-contain">
                                 заказывали: 123</p>
                         </div>
                     </div>
@@ -409,22 +422,22 @@
                             широкое применение во всех
                             сферах жизнедеятельности человека</p>
                         <div
-                            class="flex gap-[10px] whitespace-nowrap!  justify-center items-center text-[14px] text-dark">
+                            class="flex gap-[10px] whitespace-nowrap! justify-center items-center text-[14px] text-dark">
                             <span class="font-bold whitespace-nowrap tracking-[0.1px]">от 7 950 руб. / м²</span>
                             <p class="bg-dark/4 px-1 w-full h-[28px] flex justify-center gap-[11px] items-center"><span
                                     class="w-[9px] animate-pulse aspect-square rounded-full bg-primary"></span> хорошая
                                 цена</p>
                             <p class="bg-dark/4 px-2 w-full h-[28px] flex justify-center gap-[11px] items-center"><img
-                                    src="/images/icons/checked.svg" class="w-[12px] object-contain  "></img>
+                                    src="/images/icons/checked.svg" class="w-[12px] object-contain">
                                 заказывали: 123</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
-
-    <section class="container max-md:pt-[50px] pt-20">
+    <section class="container max-md:pt-10 pt-20">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
             Часто задаваемые вопросы</h2>
         <div class="flex flex-col gap-1 w-full" x-data="{ 
@@ -466,7 +479,7 @@
         </div>
     </section>
 
-    <footer class="mt-[80px] max-lg:mt-[50px]" x-data="{
+    <footer class="mt-[80px] max-lg:mt-10" x-data="{
     contacts: [
         {
             id: 1,
@@ -495,7 +508,7 @@
     ]
 }">
         <div class="bg-l-white">
-            <div class="container max-lg:pt-[40px] max-lg:pb-[50px] max-sm:pt-[50px] py-[80px]">
+            <div class="container max-lg:pt-[40px] max-lg:pb-10 max-sm:pt-10 py-[80px]">
                 <h2
                     class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
                     Поможем с выбором камня</h2>
@@ -526,7 +539,7 @@
             </div>
         </div>
         <div class="bg-f-bg relative">
-            <div class="container pt-[50px]">
+            <div class="container pt-10">
                 <div class="flex max-[1200px]:flex-col max-[1200px]:items-start gap-10 items-center justify-between">
                     <h2 class="font-medium text-white text-[32px]"><a href="/">Географика</a></h2>
                     <nav class="max-[1200px]:w-full">
