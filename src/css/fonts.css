@@ -1,25 +1,45 @@
+@import "tailwindcss";
+
+/* 1. Регистрируем каждый файл под своим уникальным именем */
 @font-face {
-    font-family: 'Raleway';
+    font-family: 'Raleway-Regular';
     src: url("/fonts/Raleway-Regular.ttf");
     font-weight: 400;
 }
 
 @font-face {
-    font-family: 'Med';
+    font-family: 'Raleway-Medium';
     src: url("/fonts/Raleway-Medium.ttf");
-    font-weight: 400;
+    font-weight: 500;
 }
 
 @font-face {
-    font-family: 'Bold';
-    src: url("/fonts/Raleway-Bold.ttf");
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: 'Semi';
+    font-family: 'Raleway-SemiBold';
     src: url("/fonts/Raleway-SemiBold.ttf");
-    font-weight: 400;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Raleway-Bold';
+    src: url("/fonts/Raleway-Bold.ttf");
+    font-weight: 700;
+}
+
+/* 2. Привязываем эти имена к классам Tailwind v4 */
+@theme {
+    --font-regular: "Raleway-Regular", sans-serif;
+    --font-medium: "Raleway-Medium", sans-serif;
+    --font-semibold: "Raleway-SemiBold", sans-serif;
+    --font-bold: "Raleway-Bold", sans-serif;
+}
+
+/* 3. Базовый шрифт для всего сайта */
+@layer base {
+    body {
+        font-family: var(--font-regular);
+        font-variant-numeric: lining-nums proportional-nums;
+        letter-spacing: 0.5px;
+    }
 }
 
 @font-face {
@@ -29,25 +49,5 @@
 }
 
 .font-forum {
-    font-family: "Forum", ui-sans-serif, system-ui, sans-serif;
-}
-
-.font-medium {
-    font-family: "Med", ui-sans-serif, system-ui, sans-serif;
-    font-weight: 500;
-}
-
-.font-semibold {
-    font-family: "Semi", ui-sans-serif, system-ui, sans-serif !important;
-}
-
-.font-bold {
-    font-family: "Bold", ui-sans-serif, system-ui, sans-serif
-}
-
-body {
-    font-variant-numeric: lining-nums proportional-nums;
-    letter-spacing: 0.5px;
-    font-weight: 400;
-    font-family: "Raleway", ui-sans-serif, system-ui, sans-serif
+    font-family: "Forum", serif;
 }

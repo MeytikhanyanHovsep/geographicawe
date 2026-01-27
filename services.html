@@ -60,21 +60,30 @@
         init() {
             const observer = new IntersectionObserver((entries) => {
                 if (window.innerWidth >= 768) return;
+
                 entries.forEach(entry => {
+                    // Находим картинку внутри обертки
+                    const img = entry.target.querySelector('img');
+                    if (!img) return;
+
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('ring-primary');
-                        entry.target.classList.remove('ring-transparent');
+                        img.classList.add('border-primary');
+                        img.classList.remove('border-transparent');
                     } else {
-                        entry.target.classList.remove('ring-primary');
-                        entry.target.classList.add('ring-transparent');
+                        img.classList.remove('border-primary');
+                        img.classList.add('border-transparent');
                     }
                 });
-            }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+            }, { 
+                rootMargin: '-35% 0px -35% 0px', 
+                threshold: 0 
+            });
+
             this.$nextTick(() => {
-                this.$el.querySelectorAll('.js-scroll-border').forEach(el => observer.observe(el));
+                this.$el.querySelectorAll('.js-scroll-item').forEach(el => observer.observe(el));
             });
         }
-    }">
+     }">
         <h2
             class="font-medium text-[32px] max-md:pt-[40px] pt-20 max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
             Лучшие предложения</h2>
@@ -82,9 +91,9 @@
             <template x-for="(item, index) in items" :key="index">
                 <div class="swiper-slide">
                     <div
-                        class="js-scroll-border gap-6 ring-2 ring-inset ring-transparent transition-all duration-300 hover:ring-primary max-lg:gap-4 max-lg:p-5 max-md:p-[15px] flex max-lg:flex-col bg-l-white p-7 pr-[13px] text-[14px]">
+                        class="gap-6 js-scroll-item border border-inset border-transparent transition-all duration-300 hover:border-primary max-lg:gap-4 max-lg:p-5 max-md:p-[15px] flex max-lg:flex-col bg-l-white p-7 pr-[13px] text-[14px]">
                         <img alt="service" :src="item" :class="index % 2 ? 'lg:order-2' : ''"
-                            class="min-h-full max-lg:min-w-full max-md:min-h-[155px] max-w-[540px] xl:w-[540px] object-cover" />
+                            class="min-h-full border-2 border-transparent  max-lg:min-w-full max-md:min-h-[155px] max-w-[540px] xl:w-[540px] object-cover" />
                         <div>
                             <h6 class=" leading-[140%]  font-bold">Монтаж балюстрады из песчаника</h6>
                             <p
@@ -108,18 +117,27 @@
         init() {
             const observer = new IntersectionObserver((entries) => {
                 if (window.innerWidth >= 768) return;
+
                 entries.forEach(entry => {
+                    // Находим картинку внутри обертки
+                    const img = entry.target.querySelector('img');
+                    if (!img) return;
+
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('ring-primary');
-                        entry.target.classList.remove('ring-transparent');
+                        img.classList.add('border-primary');
+                        img.classList.remove('border-transparent');
                     } else {
-                        entry.target.classList.remove('ring-primary');
-                        entry.target.classList.add('ring-transparent');
+                        img.classList.remove('border-primary');
+                        img.classList.add('border-transparent');
                     }
                 });
-            }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+            }, { 
+                rootMargin: '-35% 0px -35% 0px', 
+                threshold: 0 
+            });
+
             this.$nextTick(() => {
-                this.$el.querySelectorAll('.js-scroll-border').forEach(el => observer.observe(el));
+                this.$el.querySelectorAll('.js-scroll-item').forEach(el => observer.observe(el));
             });
         }
     }">
@@ -129,8 +147,9 @@
             <template x-for="(item, index) in items" :key="index">
                 <div class="swiper-slide">
                     <div
-                        class="js-scroll-border gap-4 ring-2 ring-inset ring-transparent transition-all duration-300 hover:ring-primary flex flex-col bg-l-white max-md:p-[15px] max-lg:p-5 p-7 pr-[13px] text-[14px]">
-                        <img alt="service" :src="item" class="min-h-[155px] w-full object-cover" />
+                        class="js-scroll-item gap-4  border border-inset border-transparent transition-all duration-300 hover:border-primary flex flex-col bg-l-white max-md:p-[15px] max-lg:p-5 p-7 pr-[13px] text-[14px]">
+                        <img alt="service" :src="item"
+                            class="min-h-[155px] border-2 border-transparent w-full object-cover" />
                         <div>
                             <h6 class=" leading-[140%] font-bold">Монтаж балюстрады из песчаника</h6>
                             <p class="leading-[130%] mb-4 mt-2 tracking-[0.2px] sm:max-w-[475px] ">

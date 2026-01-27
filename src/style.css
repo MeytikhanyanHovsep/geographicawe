@@ -2,6 +2,20 @@
 @import "./css/fonts.css";
 @import "./css/colors.css";
 
+@layer utilities {
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    height: 0 !important;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    /* Firefox */
+  }
+}
 
 .container {
   max-width: 1324px;
