@@ -59,6 +59,7 @@
     activeCategory: 'ГРАНИТ',
     openedSort: null, 
     asideOpen: false,
+    moreMenuOpen: false,
     categories: ['ГРАНИТ', 'СЛАНЕЦ', 'ТРАВЕРТИН', 'ПЕСЧАНИК', 'ИЗВЕСТНЯК', 'МРАМОР'],
     sorts: {
         popularity: { label: 'По популярности', options: ['По популярности', 'Новинки'] },
@@ -67,13 +68,12 @@
     }
 }">
 
-        <div class="grid grid-cols-6 max-md:flex! max-md:justify-between bg-l-white relative"
-            x-data="{ moreMenuOpen: false }">
+        <div class="grid grid-cols-6 max-md:flex! max-md:justify-between bg-l-white relative">
             <template x-for="(cat, index) in categories" :key="index">
                 <div :class="index > 2 ? 'max-md:hidden' :''" class="flex items-center flex-1 h-full">
                     <button class="flex-1 max-md:text-[12px] max-lg:h-10 h-[60px] uppercase transition-all duration-300"
                         :class="activeCategory === cat ? ' bg-f-bg! font-bold text-white' : 'text-gray-800 tracking-[0.2px] font-medium hover:bg-gray-100'"
-                        @click="activeCategory = cat" x-text="cat">
+                        @click="activeCategory = cat; moreMenuOpen = false; openedSort = null" x-text="cat">
                     </button>
                     <template x-if="index < categories.length - 1">
                         <span
@@ -85,7 +85,7 @@
 
             <div class="flex md:hidden items-center justify-center gap-[10px] min-w-[64px] h-full relative"
                 @click.outside="moreMenuOpen = false">
-                <button @click="moreMenuOpen = !moreMenuOpen"
+                <button @click="moreMenuOpen = !moreMenuOpen; if(moreMenuOpen) openedSort = null"
                     class="flex-1 flex items-center justify-center max-lg:h-10 h-[60px] transition-all duration-300 uppercase text-gray-800 tracking-[0.2px] font-medium hover:bg-gray-100 max-md:text-[12px]">
                     Ещё
                     <svg class="flex-none w-3 h-3 transition-transform duration-300"
@@ -112,7 +112,7 @@
 
         <div class="flex max-w-max max-lg:justify-between max-lg:min-w-full justify-start lg:ml-[320px] items-center gap-5 max-md:gap-4 max-md:pt-5 pt-8"
             @click.outside="openedSort = null">
-            <button @click="asideOpen = true"
+            <button @click="asideOpen = true; moreMenuOpen = false; openedSort = null"
                 class="bg-f-bg max-lg:py-[10px] h-[43px] max-w-[164px] min-w-[164px] justify-center text-white lg:hidden max-md:min-w-[84px] max-md:max-w-[84px] font-bold flex items-center gap-[10px] ">
                 <img src="/images/icons/params.svg" class="" alt="*" />
                 <span class="max-md:hidden">Все фильтры</span>
@@ -123,7 +123,7 @@
 
                     <button
                         class="flex items-center justify-center gap-2 max-lg:py-[8px] border min-w-max border-gray-200 max-lg:px-[13px] px-6 py-[14px] hover:bg-gray-200 transition-colors max-[660px]:w-full"
-                        @click.stop="openedSort = (openedSort === key ? null : key)">
+                        @click.stop="openedSort = (openedSort === key ? null : key); if(openedSort) moreMenuOpen = false">
 
                         <span x-text="sort.label"></span>
 
@@ -154,15 +154,15 @@
         <div x-show="asideOpen" x-transition.opacity @click="asideOpen = false"
             class="fixed inset-0 bg-black/50 z-99 lg:hidden" style="display: none;"></div>
 
-        <section class="pb-20 max-lg:items-stretch items-start flex gap-10 mt-10" x-data="{
-            groups: [
-                { title: 'Размер', options: ['300x600x30', '300x600x80', '300x600x100'] },
-                { title: 'Вид', options: ['Гранит', 'Мрамор', 'Сланец'] },
-                { title: 'Назначение', options: ['Гранит', 'Мрамор', 'Сланец'] },
-                { title: 'Структура зерна', options: ['Мелкая', 'Средняя', 'Крупная'] },
-                { title: 'Цвета', options: ['Коричневый', 'Красный', 'Синий'] }
-            ]
-        }">
+        <section class="pb-20 max-lg:pb-10 max-lg:items-stretch items-start flex gap-10 mt-10" x-data="{
+        groups: [
+            { title: 'Размер', options: ['300x600x30', '300x600x80', '300x600x100'] },
+            { title: 'Вид', options: ['Гранит', 'Мрамор', 'Сланец'] },
+            { title: 'Назначение', options: ['Гранит', 'Мрамор', 'Сланец'] },
+            { title: 'Структура зерна', options: ['Мелкая', 'Средняя', 'Крупная'] },
+            { title: 'Цвета', options: ['Коричневый', 'Красный', 'Синий'] }
+        ]
+    }">
             <aside :class="asideOpen ? 'translate-x-0' : 'max-lg:-translate-x-full'"
                 class="min-w-[280px] w-[280px] transition-transform duration-300 max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:h-full max-lg:bg-white max-lg:z-100 hide-scrollbar max-lg:p-6 max-lg:shadow-2xl overflow-y-auto lg:static lg:block lg:translate-x-0">
 
@@ -213,18 +213,18 @@
             <div class="max-lg:w-full">
                 <div class="grid max-lg:min-w-full mb-10 h-min grid-cols-1 sm:grid-cols-2 max-lg:gap-[30px] max-sm:gap-5 xl:grid-cols-3 gap-y-10 gap-x-5"
                     x-data="{
-                    items: [
-                        { name: 'Мрамор', img: '/images/stones/marble.jpg' },
-                        { name: 'Гранит', img: '/images/stones/granite.jpg' },
-                        { name: 'Оникс', img: '/images/stones/onyx.jpg' },
-                        { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
-                        { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
-                        { name: 'Гранит', img: '/images/stones/granite.jpg' },
-                        { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
-                        { name: 'Гранит', img: '/images/stones/granite.jpg' } ,
-                        { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
-                    ]
-                }">
+                items: [
+                    { name: 'Мрамор', img: '/images/stones/marble.jpg' },
+                    { name: 'Гранит', img: '/images/stones/granite.jpg' },
+                    { name: 'Оникс', img: '/images/stones/onyx.jpg' },
+                    { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
+                    { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
+                    { name: 'Гранит', img: '/images/stones/granite.jpg' },
+                    { name: 'Мрамор', img: '/images/stones/marble.jpg' }, 
+                    { name: 'Гранит', img: '/images/stones/granite.jpg' } ,
+                    { name: 'Оникс', img: '/images/stones/onyx.jpg' }, 
+                ]
+            }">
 
                     <template x-for="(item,index) in items" :key="index">
                         <product-card :name="item.name" :img="item.img" />
@@ -239,7 +239,7 @@
     </div>
 
 
-    <section class="bg-l-white max-lg:py-[60px] max-md:py-[50px] py-20" x-data="{
+    <section class="bg-l-white max-lg:py-[60px] max-md:py-10 py-20" x-data="{
         item:{ name: 'Оникс', img: 'images/stones/onyx.jpg' },
         scrollScale: 1,
         init() {

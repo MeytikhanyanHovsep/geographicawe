@@ -62,16 +62,14 @@
                 if (window.innerWidth >= 768) return;
 
                 entries.forEach(entry => {
-                    // Находим картинку внутри обертки
-                    const img = entry.target.querySelector('img');
-                    if (!img) return;
+                     const card = entry.target;
 
                     if (entry.isIntersecting) {
-                        img.classList.add('border-primary');
-                        img.classList.remove('border-transparent');
+                        card.classList.add('border-primary!');
+                        card.classList.remove('border-transparent');
                     } else {
-                        img.classList.remove('border-primary');
-                        img.classList.add('border-transparent');
+                        card.classList.remove('border-primary!');
+                        card.classList.add('border-transparent');
                     }
                 });
             }, { 
@@ -119,35 +117,33 @@
                 if (window.innerWidth >= 768) return;
 
                 entries.forEach(entry => {
-                    // Находим картинку внутри обертки
-                    const img = entry.target.querySelector('img');
-                    if (!img) return;
+                    const card = entry.target;
 
                     if (entry.isIntersecting) {
-                        img.classList.add('border-primary');
-                        img.classList.remove('border-transparent');
+                        card.classList.add('border-primary!');
+                        card.classList.remove('border-transparent');
                     } else {
-                        img.classList.remove('border-primary');
-                        img.classList.add('border-transparent');
+                        card.classList.remove('border-primary!');
+                        card.classList.add('border-transparent');
                     }
                 });
             }, { 
-                rootMargin: '-35% 0px -35% 0px', 
-                threshold: 0 
+                rootMargin: '-40% 0px -40% 0px', 
+                threshold: 0
             });
 
             this.$nextTick(() => {
                 this.$el.querySelectorAll('.js-scroll-item').forEach(el => observer.observe(el));
             });
         }
-    }">
+     }">
         <h2 class="font-medium text-[32px] max-sm:text-[24px] max-sm:tracking-[0.2px] uppercase mb-[10px] text-dark-bg">
             доп. услуги для сотрудничества</h2>
         <div class="gap-5 max-lg:grid-cols-1 grid grid-cols-2">
             <template x-for="(item, index) in items" :key="index">
                 <div class="swiper-slide">
                     <div
-                        class="js-scroll-item gap-4  border border-inset border-transparent transition-all duration-300 hover:border-primary flex flex-col bg-l-white max-md:p-[15px] max-lg:p-5 p-7 pr-[13px] text-[14px]">
+                        class="js-scroll-item gap-4  border border-transparent transition-all duration-300 hover:border-primary flex flex-col bg-l-white max-md:p-[15px] max-lg:p-5 p-7 pr-[13px] text-[14px]">
                         <img alt="service" :src="item"
                             class="min-h-[155px] border-2 border-transparent w-full object-cover" />
                         <div>

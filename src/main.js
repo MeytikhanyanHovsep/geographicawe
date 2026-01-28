@@ -59,7 +59,7 @@ document.addEventListener('alpine:init', () => {
                       class="absolute flex flex-col gap-[4px] left-1/2 -translate-x-1/2 top-full mt-4 p-[10px] w-[230px] bg-white shadow-xl z-50">
                     <template x-for="subItem in item.sub">
                       <li><a :href="item.link"
-                            class="text-dark bg-light transition-all duration-300 px-[18px] h-8 flex items-center hover:bg-gray-200"
+                            class="text-dark bg-light transition-all duration-300 px-[18px] h-8 flex items-center hover:bg-gray-300"
                             x-text="subItem"></a></li>
                     </template>
                   </ul>
