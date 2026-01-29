@@ -25,7 +25,11 @@
   margin-right: auto;
 }
 
-
+header a,
+header div,
+header button {
+  transition: 0.3s
+}
 
 .services-main {
   background-image: url('/images/bgs/service.jpg');
@@ -198,11 +202,6 @@ a {
 }
 
 
-@media screen and (max-width:1280px) {
-  body {
-    padding-bottom: 108px;
-  }
-}
 
 
 @media screen and (max-width:768px) {
