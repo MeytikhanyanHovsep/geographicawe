@@ -37,12 +37,12 @@
             scrolled ? 'xl:bg-white xl:shadow-md' : '',
             isLight ? 'bg-white shadow-md' : 'bg-transparent'
          ]"
-            class="sm:border-b transition-colors duration-500 absolute xl:fixed max-sm:flex-col max-sm:flex z-20 top-0 left-0 max-sm:h-[112px] max-sm:border-0 h-20 border-white/30 w-full">
+            class="sm:border-b transition-colors duration-300 absolute xl:fixed max-sm:flex-col max-sm:flex z-20 top-0 left-0 max-sm:h-[112px] max-sm:border-0 h-20 border-white/30 w-full">
 
             <div class="container gap-[14px] relative h-full flex items-center justify-between">
 
                 <a href="/" class="z-50 shrink-0">
-                    <h1 class="uppercase font-forum leading-[100%] text-[28.5px] max-sm:text-[16.5px] transition-colors duration-500"
+                    <h1 class="uppercase font-forum leading-[100%] text-[28.5px] max-sm:text-[16.5px] transition-colors duration-300"
                         :class="[
                   scrolled ? 'xl:text-dark' : '',
                   isLight ? 'text-dark' : 'text-white'
@@ -77,11 +77,10 @@
                                     <template x-if="item.sub">
                                         <button type="button" @click.outside="openedIndex=null"
                                             @click.stop="let isCurrent = (openedIndex === index); $dispatch('close-all'); openedIndex = isCurrent ? null : index"
-                                            class="max-xl:text-[14px] group hover:text-primary flex items-center whitespace-nowrap transition-all duration-500 gap-[10px] cursor-pointer outline-none"
+                                            class="max-xl:text-[14px] group hover:text-primary flex items-center whitespace-nowrap font-bold transition-all duration-500 gap-[10px] cursor-pointer outline-none"
                                             :class="[
                             scrolled ? 'xl:text-dark' : '',
        isLight ? 'text-dark' : 'text-white',
-       (!isLight && !scrolled) ? 'font-bold' : 'xl:font-normal'
                         ]">
                                             <span x-text="item.name"></span>
                                             <span
@@ -98,9 +97,8 @@
                                     <template x-if="!item.sub">
                                         <a :href="item.link" :class="[
        scrolled ? 'xl:text-dark' : '',
-       isLight ? 'text-dark' : 'text-white',
-       (!isLight && !scrolled) ? 'font-bold' : 'xl:font-normal'
-   ]" class="whitespace-nowrap max-xl:text-[14px] hover:text-primary transition-all duration-300 leading-none"
+       isLight ? 'text-dark' : 'text-white'
+   ]" class="whitespace-nowrap font-bold max-xl:text-[14px] hover:text-primary transition-all duration-300 leading-none"
                                             x-text="item.name"></a>
                                     </template>
 
@@ -109,7 +107,7 @@
                                             class="absolute flex flex-col gap-[4px] left-1/2 -translate-x-1/2 top-full mt-4 p-[10px] w-[230px] bg-white shadow-xl z-50">
                                             <template x-for="subItem in item.sub">
                                                 <li><a :href="item.link"
-                                                        class="text-dark bg-light transition-all duration-500 px-[18px] h-8 flex items-center hover:bg-gray-300"
+                                                        class="text-dark font-medium bg-light transition-all duration-500 px-[18px] h-8 flex items-center hover:bg-gray-300"
                                                         x-text="subItem"></a></li>
                                             </template>
                                         </ul>
@@ -233,7 +231,6 @@
             </div>
         </div>
     </header>
-
     <main
         class="h-[590px] max-md:pt-[128px] pt-[120px] services-main max-lg:h-[564px] max-lg:pt-[94px] max-md:h-[422px] bg-center bg-cover ">
         <div class="container flex h-full justify-start flex-col gap-4">

@@ -77,11 +77,10 @@
                                     <template x-if="item.sub">
                                         <button type="button" @click.outside="openedIndex=null"
                                             @click.stop="let isCurrent = (openedIndex === index); $dispatch('close-all'); openedIndex = isCurrent ? null : index"
-                                            class="max-xl:text-[14px] group hover:text-primary flex items-center whitespace-nowrap transition-all duration-500 gap-[10px] cursor-pointer outline-none"
+                                            class="max-xl:text-[14px] group hover:text-primary flex items-center whitespace-nowrap transition-all duration-500 gap-[10px] font-bold cursor-pointer outline-none"
                                             :class="[
                             scrolled ? 'xl:text-dark' : '',
-       isLight ? 'text-dark' : 'text-white',
-       (!isLight && !scrolled) ? 'font-bold' : 'xl:font-normal'
+       isLight ? 'text-dark' : 'text-white'
                         ]">
                                             <span x-text="item.name"></span>
                                             <span
@@ -98,16 +97,15 @@
                                     <template x-if="!item.sub">
                                         <a :href="item.link" :class="[
        scrolled ? 'xl:text-dark' : '',
-       isLight ? 'text-dark' : 'text-white',
-       (!isLight && !scrolled) ? 'font-bold' : 'xl:font-normal'
-   ]" class="whitespace-nowrap max-xl:text-[14px] hover:text-primary transition-all duration-300 leading-none"
+       isLight ? 'text-dark' : 'text-white'
+   ]" class="whitespace-nowrap max-xl:text-[14px] font-bold hover:text-primary transition-all duration-300 leading-none"
                                             x-text="item.name"></a>
                                     </template>
 
                                     <template x-if="item.sub">
                                         <ul x-show="openedIndex === index" x-transition
                                             class="absolute flex flex-col gap-[4px] left-1/2 -translate-x-1/2 top-full mt-4 p-[10px] w-[230px] bg-white shadow-xl z-50">
-                                            <template x-for="subItem in item.sub">
+                                            <template x-for="subItem font-medium in item.sub">
                                                 <li><a :href="item.link"
                                                         class="text-dark bg-light transition-all duration-500 px-[18px] h-8 flex items-center hover:bg-gray-300"
                                                         x-text="subItem"></a></li>
