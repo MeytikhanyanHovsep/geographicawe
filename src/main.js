@@ -10,32 +10,27 @@ document.addEventListener('alpine:init', () => {
     init() {
         this.lastScrollY = window.pageYOffset;
     },
-   handleScroll() {
-    const currentScrollY = window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
-    const isAtBottom = windowHeight + currentScrollY >= docHeight - 2;
+    handleScroll() {
+        const currentScrollY = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+        const distanceToBottom = docHeight - windowHeight - currentScrollY;
 
+        if (distanceToBottom < 100) {
+            this.showButton = true;
+        } 
+        else if (currentScrollY < 10) {
+            this.showButton = false;
+        } 
+        else if (currentScrollY > this.lastScrollY) {
+            this.showButton = true;
+        } 
+        else if (currentScrollY < this.lastScrollY) {
+            this.showButton = false;
+        }
 
-      if (isAtBottom) {
-        this.showButton = true; 
+        this.lastScrollY = currentScrollY;
     }
-    if (currentScrollY < 10) {
-        this.showButton = false;
-    } 
-    else if (currentScrollY > this.lastScrollY) {
-        this.showButton = true;
-    } 
-    else if (currentScrollY < this.lastScrollY) {
-        this.showButton = false;
-    }
-
-       if (isAtBottom) {
-        this.showButton = true; 
-    }
-
-    this.lastScrollY = currentScrollY;
-}
 }" 
 @scroll.window.throttle.20ms="handleScroll()">
 
