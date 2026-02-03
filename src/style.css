@@ -84,6 +84,15 @@ header button {
 
 
 
+
+
+@media screen and (max-width:1280px) {
+  body {
+    padding-bottom: 109px;
+  }
+}
+
+
 @media screen and (max-width:1028px) {
   .container {
     padding-left: 20px;
@@ -113,20 +122,16 @@ input[type=range] {
   position: absolute;
   width: 100%;
   background: none;
-  /* Убираем фон */
   pointer-events: none;
-  /* Клик проходит сквозь инпут */
   z-index: 2;
   height: 0;
   top: 0;
   outline: none;
 }
 
-/* Настройки для ползунка (кружка) в Chrome/Safari */
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
-  /* Кружок ловит клик */
   width: 20px;
   height: 20px;
   background: radial-gradient(circle, black 30%, white 31%);
@@ -137,10 +142,8 @@ input[type=range]::-webkit-slider-thumb {
   z-index: 10;
 }
 
-/* Настройки для ползунка (кружка) в Firefox */
 input[type=range]::-moz-range-thumb {
   pointer-events: all;
-  /* Кружок ловит клик */
   width: 20px;
   height: 20px;
   background: radial-gradient(circle, black 30%, white 31%);
@@ -150,7 +153,6 @@ input[type=range]::-moz-range-thumb {
   border: none;
 }
 
-/* Убираем стандартную серую линию Firefox */
 input[type=range]::-moz-range-track {
   background: transparent;
   border: none;
@@ -159,7 +161,6 @@ input[type=range]::-moz-range-track {
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
-  /* Делает ручку активной для клика */
   width: 20px;
   height: 20px;
   background: radial-gradient(circle, black 30%, white 31%);
@@ -172,7 +173,6 @@ input[type=range]::-webkit-slider-thumb {
 
 input[type=range]::-moz-range-thumb {
   pointer-events: all;
-  /* Важно для Firefox */
   width: 20px;
   height: 20px;
   background: radial-gradient(circle, black 30%, white 31%);
