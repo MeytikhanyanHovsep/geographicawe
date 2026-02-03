@@ -12,7 +12,14 @@ document.addEventListener('alpine:init', () => {
     },
    handleScroll() {
     const currentScrollY = window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    const isAtBottom = windowHeight + currentScrollY >= docHeight - 2;
 
+
+      if (isAtBottom) {
+        this.showButton = true; 
+    }
     if (currentScrollY < 10) {
         this.showButton = false;
     } 
@@ -21,6 +28,10 @@ document.addEventListener('alpine:init', () => {
     } 
     else if (currentScrollY < this.lastScrollY) {
         this.showButton = false;
+    }
+
+       if (isAtBottom) {
+        this.showButton = true; 
     }
 
     this.lastScrollY = currentScrollY;
