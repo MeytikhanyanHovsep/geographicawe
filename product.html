@@ -245,6 +245,7 @@
                     slidesPerGroup: 1,
                     loop: true,
                     autoplay: {
+                        enabled: true,
                         delay: 7000,
                         disableOnInteraction: false,
                     },
@@ -258,7 +259,9 @@
                     },
                     breakpoints: {
                         768: {
-                            autoplay: false,
+                           autoplay: {
+                                enabled: false
+                            }
                         }
                     }
                 });
@@ -416,7 +419,7 @@
                     class="border px-[20px] h-[80px] max-md:p-[16px] max-md:text-[12px] max-sm:h-[56px] leading-[100%] border-border pt-[20px] outline-none resize-none"></textarea>
 
                 <button type="submit"
-                    class="h-[60px] max-sm:h-[54px] font-bold uppercase text-[14px] flex items-center justify-center w-full bg-primary hover:bg-h-primary transition-all duration-300 cursor-pointer text-dark max-sm:text-[12px] hover:brightness-110 active:scale-95">
+                    class="h-[60px]  max-sm:h-[54px] font-bold uppercase text-[14px] flex items-center justify-center w-full bg-primary hover:bg-h-primary transition-all duration-300 cursor-pointer text-dark max-sm:text-[12px] ">
                     Отправить
                 </button>
                 <p class="text-[14px] max-sm:text-[12px] opacity-60">Нажимая &quot;Отправить заявку&quot;, вы принимаете
